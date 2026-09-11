@@ -10,7 +10,7 @@ Full-stack e-commerce platform (Node.js/Express/MongoDB backend, vanilla JS + Ta
 - [x] Phase 4 — Customer frontend
 - [x] Phase 5 — Orders
 - [x] Phase 6 — Payments
-- [ ] Phase 7 — Vouchers + PDF
+- [x] Phase 7 — Vouchers + PDF
 - [ ] Phase 8 — Admin panel frontend
 - [ ] Phase 9 — Notifications
 - [ ] Phase 10 — UI polish
