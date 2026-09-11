@@ -32,6 +32,7 @@ function renderOrder(order) {
   qs('#success-order-status').textContent = order.status;
   qs('#success-order-total').textContent = formatCurrency(order.total);
   qs('#success-item-count').textContent = String(order.items.length);
+  qs('#success-view-voucher').href = `/voucher/${order._id}`;
 
   const payment = order.paymentId;
   let note = 'Your order is pending confirmation.';

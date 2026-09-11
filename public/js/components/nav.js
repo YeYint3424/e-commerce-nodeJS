@@ -17,6 +17,7 @@ function authAreaHtml() {
     return `
       <div class="flex items-center gap-3">
         <span class="hidden text-sm font-medium text-slate-700 dark:text-slate-200 sm:inline">${name}</span>
+        <a href="/voucher-list" class="text-sm font-medium text-slate-600 transition-colors hover:text-indigo-600 dark:text-slate-300 dark:hover:text-indigo-400">My Orders</a>
         <button type="button" id="nav-logout" class="rounded-full border border-slate-200 px-3 py-1.5 text-sm font-medium text-slate-600 transition-colors hover:border-rose-300 hover:text-rose-600 dark:border-slate-700 dark:text-slate-300">Logout</button>
       </div>
     `;
@@ -184,6 +185,7 @@ export function renderFooter() {
           <ul class="mt-3 space-y-2 text-sm text-slate-500 dark:text-slate-400">
             <li><a href="/login" class="hover:text-indigo-500">Login</a></li>
             <li><a href="/register" class="hover:text-indigo-500">Register</a></li>
+            <li><a href="/voucher-list" class="hover:text-indigo-500">My Orders</a></li>
           </ul>
         </div>
         <div>

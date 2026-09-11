@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Orders - Shoply</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<div id="site-header"></div>
+<main class="mx-auto max-w-6xl px-4 py-10 sm:px-6 lg:px-8">
+  <div class="flex flex-wrap items-center justify-between gap-3">
+    <div>
+      <h1 class="text-2xl font-bold text-slate-900 dark:text-white">My Orders</h1>
+      <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">View your order history and download vouchers for confirmed orders.</p>
+    </div>
+    <div class="flex items-center gap-2">
+      <label for="filter-status" class="text-sm text-slate-500 dark:text-slate-400">Status</label>
+      <select id="filter-status" class="rounded-full border border-slate-200 bg-white px-3 py-1.5 text-sm dark:border-slate-700 dark:bg-slate-900">
+        <option value="">All</option>
+        <option value="PENDING">Pending</option>
+        <option value="CONFIRMED">Confirmed</option>
+        <option value="PROCESSING">Processing</option>
+        <option value="SHIPPED">Shipped</option>
+        <option value="DELIVERED">Delivered</option>
+        <option value="COMPLETED">Completed</option>
+        <option value="CANCELLED">Cancelled</option>
+        <option value="PAYMENT_FAILED">Payment Failed</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="hidden mt-8 rounded-xl bg-slate-100 px-4 py-3 text-xs font-semibold uppercase tracking-wide text-slate-500 sm:grid sm:grid-cols-[1fr_1.6fr_0.9fr_0.9fr_0.9fr_1.2fr] sm:gap-4 dark:bg-slate-900 dark:text-slate-400">
+    <span>Voucher</span><span>Items</span><span>Total</span><span>Status</span><span>Date</span><span>Actions</span>
+  </div>
+
+  <div id="voucher-list" class="mt-4 space-y-3"></div>
+
+  <div id="voucher-empty" class="hidden flex-col items-center gap-4 rounded-2xl border border-dashed border-slate-300 py-20 text-center dark:border-slate-700">
+    <i data-lucide="receipt" class="h-12 w-12 text-slate-300"></i>
+    <p class="text-lg font-semibold text-slate-600 dark:text-slate-300">You haven't placed any orders yet</p>
+    <a href="/products" class="rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500">Browse Products</a>
+  </div>
+
+  <div id="pagination" class="mt-8 flex items-center justify-center gap-1"></div>
+</main>
+<div id="site-footer"></div>
+<script type="module" src="/js/customer/voucher-list.js"></script>
+</body>
+</html>

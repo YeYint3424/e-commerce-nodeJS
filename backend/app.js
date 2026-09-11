@@ -47,6 +47,8 @@ function createApp() {
     '/payment': 'payment.html',
     '/order-success': 'order-success.html',
     '/order-failed': 'order-failed.html',
+    '/voucher-list': 'voucher-list.html',
+    '/voucher/:id': 'voucher.html',
     '/login': 'login.html',
     '/register': 'register.html',
   };

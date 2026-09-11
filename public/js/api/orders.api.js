@@ -7,3 +7,7 @@ export function createOrder(payload) {
 export function getOrder(id) {
   return request(`/orders/${id}`);
 }
+
+export function cancelOrder(id, reason) {
+  return request(`/orders/${id}/cancel`, { method: 'PATCH', body: { reason } });
+}
