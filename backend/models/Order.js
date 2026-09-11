@@ -118,6 +118,11 @@ const orderSchema = new mongoose.Schema(
     cancelledAt: {
       type: Date,
     },
+    paymentId: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Payment',
+      default: null,
+    },
   },
   {
     timestamps: true,

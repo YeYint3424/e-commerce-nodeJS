@@ -38,6 +38,7 @@ function showSuccessState(order) {
   successEl.classList.remove('hidden');
   successEl.classList.add('flex');
   qs('#success-order-id').textContent = `Order #${order._id} - Status: ${order.status}`;
+  qs('#success-continue-payment').href = `/payment?orderId=${encodeURIComponent(order._id)}`;
   if (window.lucide) {
     window.lucide.createIcons();
   }

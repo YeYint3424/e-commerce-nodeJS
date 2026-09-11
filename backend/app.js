@@ -44,6 +44,9 @@ function createApp() {
     '/products/:id': 'product-detail.html',
     '/cart': 'cart.html',
     '/order-review': 'order-review.html',
+    '/payment': 'payment.html',
+    '/order-success': 'order-success.html',
+    '/order-failed': 'order-failed.html',
     '/login': 'login.html',
     '/register': 'register.html',
   };

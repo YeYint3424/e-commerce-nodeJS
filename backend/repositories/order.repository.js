@@ -5,7 +5,7 @@ async function create(data) {
 }
 
 async function findById(id) {
-  return Order.findById(id).populate('customer', 'name email phone').exec();
+  return Order.findById(id).populate('customer', 'name email phone').populate('paymentId').exec();
 }
 
 async function findByIdRaw(id) {
@@ -17,7 +17,7 @@ async function save(order) {
 }
 
 async function paginate(filter, { skip, limit, sort = { createdAt: -1 } } = {}) {
-  return Order.find(filter).populate('customer', 'name email phone').sort(sort).skip(skip).limit(limit).exec();
+  return Order.find(filter).populate('customer', 'name email phone').populate('paymentId').sort(sort).skip(skip).limit(limit).exec();
 }
 
 async function countByFilter(filter) {
