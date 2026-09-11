@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Your Cart - Shoply</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<div id="site-header"></div>
+<main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
+  <h1 class="anim-fade-up text-2xl font-bold text-slate-900 dark:text-white">Your Cart</h1>
+  <div class="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
+    <div>
+      <div id="cart-items" class="space-y-4"></div>
+      <div id="cart-empty" class="hidden flex-col items-center gap-4 rounded-2xl border border-dashed border-slate-300 py-20 text-center dark:border-slate-700">
+        <i data-lucide="shopping-cart" class="h-12 w-12 text-slate-300"></i>
+        <p class="text-lg font-semibold text-slate-600 dark:text-slate-300">Your cart is empty</p>
+        <a href="/products" class="rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500">Continue Shopping</a>
+      </div>
+      <a href="/products" class="mt-6 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"><i data-lucide="arrow-left" class="h-4 w-4"></i>Continue Shopping</a>
+    </div>
+    <aside id="cart-summary" class="hidden h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <h2 class="text-lg font-bold text-slate-900 dark:text-white">Order Summary</h2>
+      <div class="mt-4 space-y-2 text-sm">
+        <div class="flex justify-between text-slate-500 dark:text-slate-400"><span>Items</span><span id="cart-item-count">0</span></div>
+        <div class="flex justify-between text-slate-600 dark:text-slate-300"><span>Subtotal</span><span id="cart-subtotal">$0.00</span></div>
+      </div>
+      <div class="my-4 border-t border-slate-200 dark:border-slate-800"></div>
+      <div class="flex justify-between text-base font-bold text-slate-900 dark:text-white"><span>Total</span><span id="cart-total">$0.00</span></div>
+      <button type="button" id="order-review-btn" class="mt-6 w-full rounded-xl bg-indigo-600 py-3 text-sm font-semibold text-white hover:bg-indigo-500">Proceed to Order Review</button>
+    </aside>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script type="module" src="/js/customer/cart.js"></script>
+</body>
+</html>

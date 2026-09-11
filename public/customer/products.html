@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>All Products - Shoply</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<div id="site-header"></div>
+<main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
+  <div class="anim-fade-up mb-8 flex flex-col gap-2">
+    <h1 class="text-2xl font-bold text-slate-900 dark:text-white">All Products</h1>
+    <p class="text-sm text-slate-500 dark:text-slate-400">Browse our full catalog and filter to find exactly what you need.</p>
+  </div>
+  <div class="grid gap-8 lg:grid-cols-[260px_1fr]">
+    <aside class="anim-fade-up h-fit space-y-6 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+      <div>
+        <label for="filter-search" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Search</label>
+        <input id="filter-search" type="search" placeholder="Search products..." class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white" />
+      </div>
+      <div>
+        <label for="filter-category" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Category</label>
+        <select id="filter-category" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white">
+          <option value="">All Categories</option>
+        </select>
+      </div>
+      <form id="price-filter-form" class="space-y-2">
+        <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Price Range</label>
+        <div class="flex items-center gap-2">
+          <input id="filter-min" type="number" min="0" placeholder="Min" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white" />
+          <span class="text-slate-400">-</span>
+          <input id="filter-max" type="number" min="0" placeholder="Max" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white" />
+        </div>
+        <button type="submit" class="w-full rounded-xl bg-slate-900 py-2 text-sm font-semibold text-white hover:opacity-90 dark:bg-indigo-600">Apply</button>
+      </form>
+      <div>
+        <label for="filter-sort" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Sort by</label>
+        <select id="filter-sort" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white">
+          <option value="newest">Newest</option>
+          <option value="price_asc">Price: Low to High</option>
+          <option value="price_desc">Price: High to Low</option>
+        </select>
+      </div>
+    </aside>
+    <div>
+      <div id="products-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3"></div>
+      <div id="pagination" class="mt-10 flex items-center justify-center gap-1.5"></div>
+    </div>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script type="module" src="/js/customer/products.js"></script>
+</body>
+</html>

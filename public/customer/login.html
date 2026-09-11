@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Login - Shoply</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<div id="site-header"></div>
+<main class="mx-auto flex min-h-[calc(100vh-4rem)] max-w-md flex-col justify-center px-4 py-16 sm:px-6">
+  <div class="anim-scale-in rounded-3xl border border-slate-200 bg-white p-8 shadow-xl dark:border-slate-800 dark:bg-slate-900">
+    <div class="mb-6 text-center">
+      <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-white"><i data-lucide="log-in" class="h-6 w-6"></i></span>
+      <h1 class="mt-4 text-2xl font-bold text-slate-900 dark:text-white">Welcome back</h1>
+      <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Sign in to continue to your account</p>
+    </div>
+    <form id="login-form" class="space-y-4" novalidate>
+      <div>
+        <label for="login-email" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
+        <input id="login-email" type="email" autocomplete="email" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-indigo-900" />
+        <p data-error-for="email" class="mt-1 text-xs text-rose-500"></p>
+      </div>
+      <div>
+        <label for="login-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
+        <input id="login-password" type="password" autocomplete="current-password" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-indigo-900" />
+        <p data-error-for="password" class="mt-1 text-xs text-rose-500"></p>
+      </div>
+      <button id="login-submit" type="submit" class="w-full rounded-xl bg-indigo-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-500">Login</button>
+    </form>
+    <p class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">Don't have an account? <a href="/register" class="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">Register</a></p>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script type="module" src="/js/customer/login.js"></script>
+</body>
+</html>

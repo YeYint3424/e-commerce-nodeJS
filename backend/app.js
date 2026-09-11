@@ -11,7 +11,20 @@ const { sendSuccess } = require('./utils/response.util');
 function createApp() {
   const app = express();
 
-  app.use(helmet());
+  app.use(
+    helmet({
+      contentSecurityPolicy: {
+        directives: {
+          defaultSrc: ["'self'"],
+          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://cdn.tailwindcss.com', 'https://unpkg.com'],
+          styleSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://unpkg.com', 'https://fonts.googleapis.com'],
+          fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
+          imgSrc: ["'self'", 'data:', 'blob:'],
+          connectSrc: ["'self'"],
+        },
+      },
+    })
+  );
   app.use(cors({ origin: appConfig.clientOrigin, credentials: true }));
   app.use(express.json());
   app.use(express.urlencoded({ extended: true }));
@@ -21,6 +34,24 @@ function createApp() {
   }
 
   app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+  const publicDir = path.join(__dirname, '../public');
+  app.use(express.static(publicDir, { index: false }));
+
+  const customerPages = {
+    '/': 'index.html',
+    '/products': 'products.html',
+    '/products/:id': 'product-detail.html',
+    '/cart': 'cart.html',
+    '/login': 'login.html',
+    '/register': 'register.html',
+  };
+
+  Object.entries(customerPages).forEach(([route, file]) => {
+    app.get(route, (req, res) => {
+      res.sendFile(path.join(publicDir, 'customer', file));
+    });
+  });
 
   app.get('/api/health', (req, res) => {
     sendSuccess(res, { message: 'API is healthy', data: { uptime: process.uptime() } });
