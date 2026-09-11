@@ -8,7 +8,7 @@ Full-stack e-commerce platform (Node.js/Express/MongoDB backend, vanilla JS + Ta
 - [x] Phase 2 — Authentication (customer + admin, JWT, roles, default admin)
 - [x] Phase 3 — Master data (accounts, categories, products, payment options)
 - [x] Phase 4 — Customer frontend
-- [ ] Phase 5 — Orders
+- [x] Phase 5 — Orders
 - [ ] Phase 6 — Payments
 - [ ] Phase 7 — Vouchers + PDF
 - [ ] Phase 8 — Admin panel frontend
