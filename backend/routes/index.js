@@ -6,4 +6,6 @@ router.get('/', (req, res) => {
   res.json({ success: true, message: 'E-commerce API root', data: { version: '1.0.0' } });
 });
 
+router.use('/auth', require('./auth.routes'));
+
 module.exports = router;
