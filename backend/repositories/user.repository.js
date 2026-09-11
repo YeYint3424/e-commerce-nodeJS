@@ -35,6 +35,18 @@ async function existsByEmail(email) {
   return count > 0;
 }
 
+async function paginate(filter, { skip, limit, sort = { createdAt: -1 } } = {}) {
+  return User.find(filter).sort(sort).skip(skip).limit(limit).exec();
+}
+
+async function countByFilter(filter) {
+  return User.countDocuments(filter);
+}
+
+async function deleteById(id) {
+  return User.findByIdAndDelete(id).exec();
+}
+
 module.exports = {
   createUser,
   findByEmail,
@@ -43,4 +55,7 @@ module.exports = {
   countDefaultAdmins,
   updateById,
   existsByEmail,
+  paginate,
+  countByFilter,
+  deleteById,
 };

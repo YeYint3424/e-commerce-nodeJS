@@ -8,4 +8,6 @@ backend/uploads/payment-proofs/*
 !backend/uploads/payment-proofs/.gitkeep
 backend/uploads/products/*
 !backend/uploads/products/.gitkeep
+backend/uploads/payment-options/*
+!backend/uploads/payment-options/.gitkeep
 *.log

@@ -7,5 +7,10 @@ router.get('/', (req, res) => {
 });
 
 router.use('/auth', require('./auth.routes'));
+router.use('/accounts', require('./account.routes'));
+router.use('/profile', require('./profile.routes'));
+router.use('/categories', require('./category.routes'));
+router.use('/payment-options', require('./paymentOption.routes'));
+router.use('/products', require('./product.routes'));
 
 module.exports = router;
