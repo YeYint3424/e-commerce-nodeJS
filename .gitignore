@@ -1,0 +1,11 @@
+node_modules/
+.env
+backend/.env
+npm-debug.log*
+coverage/
+.DS_Store
+backend/uploads/payment-proofs/*
+!backend/uploads/payment-proofs/.gitkeep
+backend/uploads/products/*
+!backend/uploads/products/.gitkeep
+*.log
