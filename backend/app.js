@@ -43,6 +43,7 @@ function createApp() {
     '/products': 'products.html',
     '/products/:id': 'product-detail.html',
     '/cart': 'cart.html',
+    '/order-review': 'order-review.html',
     '/login': 'login.html',
     '/register': 'register.html',
   };

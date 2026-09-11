@@ -47,6 +47,11 @@ async function deleteById(id) {
   return User.findByIdAndDelete(id).exec();
 }
 
+async function findIdsByEmailMatch(regex) {
+  const users = await User.find({ email: regex }).select('_id').lean();
+  return users.map((u) => u._id);
+}
+
 module.exports = {
   createUser,
   findByEmail,
@@ -58,4 +63,5 @@ module.exports = {
   paginate,
   countByFilter,
   deleteById,
+  findIdsByEmailMatch,
 };

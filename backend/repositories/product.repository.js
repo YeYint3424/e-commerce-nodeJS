@@ -35,6 +35,22 @@ async function countByFilter(filter) {
   return Product.countDocuments(filter);
 }
 
+async function reserveStock(productId, quantity) {
+  return Product.findOneAndUpdate(
+    { _id: productId, stock: { $gte: quantity } },
+    { $inc: { stock: -quantity } },
+    { new: true }
+  ).exec();
+}
+
+async function restoreStock(productId, quantity) {
+  return Product.findOneAndUpdate(
+    { _id: productId },
+    { $inc: { stock: quantity } },
+    { new: true }
+  ).exec();
+}
+
 module.exports = {
   create,
   findById,
@@ -42,4 +58,6 @@ module.exports = {
   deleteById,
   paginate,
   countByFilter,
+  reserveStock,
+  restoreStock,
 };
