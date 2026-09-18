@@ -36,9 +36,9 @@ function renderItems(items) {
   qs('#voucher-items').innerHTML = items
     .map(
       (item) => `
-        <div class="flex items-center justify-between gap-4 rounded-xl border border-slate-100 px-4 py-3 dark:border-slate-800">
+        <div class="flex items-center justify-between gap-4 rounded-xl border border-slate-100 px-4 py-3 dark:border-neutral-800">
           <div class="min-w-0">
-            <p class="truncate text-sm font-semibold text-slate-800 dark:text-slate-100">${escapeHtml(item.productName)}</p>
+            <p class="truncate text-sm font-semibold text-slate-800 dark:text-neutral-100">${escapeHtml(item.productName)}</p>
             <p class="text-xs text-slate-400">${formatCurrency(item.unitPrice)} x ${item.quantity}</p>
           </div>
           <span class="text-sm font-bold text-slate-900 dark:text-white">${formatCurrency(item.subtotal)}</span>
@@ -70,8 +70,8 @@ function renderNotes(notes) {
   qs('#voucher-notes').innerHTML = notes
     .map(
       (note) => `
-        <li class="rounded-xl border border-slate-100 px-4 py-3 dark:border-slate-800">
-          <p class="text-slate-700 dark:text-slate-200">${escapeHtml(note.reason || 'No reason provided')}</p>
+        <li class="rounded-xl border border-slate-100 px-4 py-3 dark:border-neutral-800">
+          <p class="text-slate-700 dark:text-neutral-200">${escapeHtml(note.reason || 'No reason provided')}</p>
           <p class="mt-0.5 text-xs text-slate-400">${formatDate(note.createdAt)}</p>
         </li>
       `

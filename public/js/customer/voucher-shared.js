@@ -12,11 +12,11 @@ const STATUS_BADGE_CLASSES = {
   DELIVERED: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300',
   COMPLETED: 'bg-emerald-100 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-300',
   CANCELLED: 'bg-rose-100 text-rose-700 dark:bg-rose-950/60 dark:text-rose-300',
-  PAYMENT_FAILED: 'bg-slate-200 text-slate-600 dark:bg-slate-800 dark:text-slate-300',
+  PAYMENT_FAILED: 'bg-slate-200 text-slate-600 dark:bg-neutral-800 dark:text-neutral-300',
 };
 
 export function statusBadgeClasses(status) {
-  return STATUS_BADGE_CLASSES[status] || 'bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300';
+  return STATUS_BADGE_CLASSES[status] || 'bg-slate-100 text-slate-600 dark:bg-neutral-800 dark:text-neutral-300';
 }
 
 export function statusBadgeHtml(status) {

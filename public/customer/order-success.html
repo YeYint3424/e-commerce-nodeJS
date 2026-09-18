@@ -22,6 +22,21 @@
         fontFamily: {
           sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
       },
     },
   };
@@ -30,7 +45,7 @@
 <link rel="stylesheet" href="/css/main.css" />
 <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
 <div id="site-header"></div>
 <main class="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:px-8">
   <div id="success-content" class="flex flex-col items-center gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 py-16 text-center dark:border-emerald-800 dark:bg-emerald-950/40">
@@ -47,13 +62,14 @@
     </div>
   </div>
 
-  <div id="success-error" class="hidden flex-col items-center gap-4 rounded-2xl border border-dashed border-slate-300 py-20 text-center dark:border-slate-700">
+  <div id="success-error" class="hidden flex-col items-center gap-4 rounded-2xl border border-dashed border-slate-300 py-20 text-center dark:border-neutral-700">
     <i data-lucide="alert-circle" class="h-12 w-12 text-slate-300"></i>
-    <p class="text-lg font-semibold text-slate-600 dark:text-slate-300">We could not load this order.</p>
-    <a href="/products" class="rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500">Continue Shopping</a>
+    <p class="text-lg font-semibold text-slate-600 dark:text-neutral-300">We could not load this order.</p>
+    <a href="/products" class="rounded-full bg-gold-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-gold-500">Continue Shopping</a>
   </div>
 </main>
 <div id="site-footer"></div>
+<script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/js/customer/order-success.js"></script>
 </body>
 </html>

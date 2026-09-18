@@ -22,6 +22,21 @@
         fontFamily: {
           sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
       },
     },
   };
@@ -30,29 +45,29 @@
 <link rel="stylesheet" href="/css/main.css" />
 <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
 <div id="site-header"></div>
 <main class="mx-auto flex min-h-[calc(100vh-4rem)] max-w-md flex-col justify-center px-4 py-16 sm:px-6">
-  <div class="anim-scale-in rounded-3xl border border-slate-200 bg-white p-8 shadow-xl dark:border-slate-800 dark:bg-slate-900">
+  <div class="anim-scale-in rounded-3xl border border-slate-200 bg-white p-8 shadow-xl dark:border-neutral-800 dark:bg-neutral-900">
     <div class="mb-6 text-center">
-      <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500 to-fuchsia-500 text-white"><i data-lucide="log-in" class="h-6 w-6"></i></span>
+      <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-500 to-gold-700 text-white"><i data-lucide="log-in" class="h-6 w-6"></i></span>
       <h1 class="mt-4 text-2xl font-bold text-slate-900 dark:text-white">Welcome back</h1>
-      <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Sign in to continue to your account</p>
+      <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Sign in to continue to your account</p>
     </div>
     <form id="login-form" class="space-y-4" novalidate>
       <div>
-        <label for="login-email" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Email</label>
-        <input id="login-email" type="email" autocomplete="email" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-indigo-900" />
+        <label for="login-email" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Email</label>
+        <input id="login-email" type="email" autocomplete="email" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
         <p data-error-for="email" class="mt-1 text-xs text-rose-500"></p>
       </div>
       <div>
-        <label for="login-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Password</label>
-        <input id="login-password" type="password" autocomplete="current-password" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-indigo-900" />
+        <label for="login-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Password</label>
+        <input id="login-password" type="password" autocomplete="current-password" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
         <p data-error-for="password" class="mt-1 text-xs text-rose-500"></p>
       </div>
-      <button id="login-submit" type="submit" class="w-full rounded-xl bg-indigo-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-indigo-500">Login</button>
+      <button id="login-submit" type="submit" class="w-full rounded-xl bg-gold-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-gold-500">Login</button>
     </form>
-    <p class="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">Don't have an account? <a href="/register" class="font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">Register</a></p>
+    <p class="mt-6 text-center text-sm text-slate-500 dark:text-neutral-400">Don't have an account? <a href="/register" class="font-semibold text-gold-600 hover:text-gold-500 dark:text-gold-400">Register</a></p>
   </div>
 </main>
 <div id="site-footer"></div>

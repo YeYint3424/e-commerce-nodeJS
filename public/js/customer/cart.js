@@ -34,21 +34,21 @@ function renderCart() {
       const unitPrice = item.discountPrice !== null && item.discountPrice !== undefined ? item.discountPrice : item.price;
       const lineTotal = unitPrice * item.quantity;
       return `
-        <div class="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
-          <div class="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-indigo-100 to-fuchsia-100 dark:from-indigo-950 dark:to-slate-900">
+        <div class="flex items-center gap-4 rounded-2xl border border-slate-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
+          <div class="h-20 w-20 shrink-0 overflow-hidden rounded-xl bg-gradient-to-br from-gold-100 to-gold-200 dark:from-gold-950 dark:to-neutral-900">
             ${
               item.image
                 ? `<img src="${escapeHtml(item.image)}" alt="${escapeHtml(item.name)}" class="h-full w-full object-cover" />`
-                : `<div class="flex h-full w-full items-center justify-center"><i data-lucide="image" class="h-6 w-6 text-indigo-300"></i></div>`
+                : `<div class="flex h-full w-full items-center justify-center"><i data-lucide="image" class="h-6 w-6 text-gold-300"></i></div>`
             }
           </div>
           <div class="min-w-0 flex-1">
-            <p class="truncate text-sm font-semibold text-slate-800 dark:text-slate-100">${escapeHtml(item.name)}</p>
+            <p class="truncate text-sm font-semibold text-slate-800 dark:text-neutral-100">${escapeHtml(item.name)}</p>
             <p class="text-sm text-slate-400">${formatCurrency(unitPrice)} each</p>
             <div class="mt-2 flex items-center gap-2">
-              <button type="button" data-decrease="${item.id}" class="h-7 w-7 rounded-full border border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-slate-700">-</button>
+              <button type="button" data-decrease="${item.id}" class="h-7 w-7 rounded-full border border-slate-200 text-slate-500 hover:border-gold-300 hover:text-gold-600 dark:border-neutral-700">-</button>
               <span class="w-6 text-center text-sm font-medium">${item.quantity}</span>
-              <button type="button" data-increase="${item.id}" class="h-7 w-7 rounded-full border border-slate-200 text-slate-500 hover:border-indigo-300 hover:text-indigo-600 dark:border-slate-700">+</button>
+              <button type="button" data-increase="${item.id}" class="h-7 w-7 rounded-full border border-slate-200 text-slate-500 hover:border-gold-300 hover:text-gold-600 dark:border-neutral-700">+</button>
             </div>
           </div>
           <div class="flex flex-col items-end gap-2">

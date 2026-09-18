@@ -8,6 +8,17 @@ const ROLES = Object.freeze({
 
 const ADMIN_PANEL_ROLES = [ROLES.STAFF, ROLES.HR, ROLES.ADMIN, ROLES.DEFAULT_ADMIN];
 
+const STAFF_ADMIN_ROLES = [ROLES.STAFF, ROLES.ADMIN, ROLES.DEFAULT_ADMIN];
+
+const ACCOUNT_SPACES = Object.freeze({
+  CUSTOMER: 'CUSTOMER',
+  STAFF: 'STAFF',
+});
+
+function resolveAccountSpace(role) {
+  return role === ROLES.CUSTOMER ? ACCOUNT_SPACES.CUSTOMER : ACCOUNT_SPACES.STAFF;
+}
+
 const ORDER_STATUS = Object.freeze({
   PENDING: 'PENDING',
   CONFIRMED: 'CONFIRMED',
@@ -42,6 +53,9 @@ const ERROR_CODES = Object.freeze({
 module.exports = {
   ROLES,
   ADMIN_PANEL_ROLES,
+  STAFF_ADMIN_ROLES,
+  ACCOUNT_SPACES,
+  resolveAccountSpace,
   ORDER_STATUS,
   PAYMENT_STATUS,
   PAYMENT_TYPES,

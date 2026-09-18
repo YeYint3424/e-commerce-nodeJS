@@ -22,6 +22,21 @@
         fontFamily: {
           sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
       },
     },
   };
@@ -30,20 +45,20 @@
 <link rel="stylesheet" href="/css/main.css" />
 <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
 <div id="site-header"></div>
 <main>
   <section class="relative overflow-hidden">
-    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-indigo-600 via-violet-600 to-fuchsia-600"></div>
+    <div class="absolute inset-0 -z-10 bg-gradient-to-br from-gold-600 via-gold-500 to-gold-800"></div>
     <div class="mx-auto max-w-7xl px-4 py-24 sm:px-6 lg:px-8 lg:py-32">
       <div class="anim-fade-up max-w-2xl">
         <span class="inline-flex items-center gap-2 rounded-full bg-white/15 px-4 py-1.5 text-xs font-semibold text-white backdrop-blur">
           <i data-lucide="sparkles" class="h-3.5 w-3.5"></i> New season, new essentials
         </span>
         <h1 class="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl">Shop smarter with curated everyday essentials</h1>
-        <p class="mt-5 max-w-xl text-lg text-indigo-100">Discover thoughtfully sourced products across every category, delivered fast with quality you can trust.</p>
+        <p class="mt-5 max-w-xl text-lg text-gold-100">Discover thoughtfully sourced products across every category, delivered fast with quality you can trust.</p>
         <div class="mt-8 flex flex-wrap gap-4">
-          <a href="/products" class="rounded-full bg-white px-7 py-3 text-sm font-semibold text-indigo-700 shadow-lg transition-transform hover:scale-105">Shop Now</a>
+          <a href="/products" class="rounded-full bg-white px-7 py-3 text-sm font-semibold text-gold-700 shadow-lg transition-transform hover:scale-105">Shop Now</a>
           <a href="/products?sort=newest" class="rounded-full border border-white/40 px-7 py-3 text-sm font-semibold text-white transition-colors hover:bg-white/10">New Arrivals</a>
         </div>
       </div>
@@ -54,9 +69,9 @@
     <div class="anim-fade-up mb-8 flex items-end justify-between">
       <div>
         <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Shop by Category</h2>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Find exactly what you're looking for</p>
+        <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Find exactly what you're looking for</p>
       </div>
-      <a href="/products" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">View all</a>
+      <a href="/products" class="text-sm font-semibold text-gold-600 hover:text-gold-500 dark:text-gold-400">View all</a>
     </div>
     <div id="categories-grid" class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4"></div>
   </section>
@@ -72,9 +87,9 @@
     <div class="anim-fade-up mb-8 flex items-end justify-between">
       <div>
         <h2 class="text-2xl font-bold text-slate-900 dark:text-white">New Arrivals</h2>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Freshly added to our catalog</p>
+        <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Freshly added to our catalog</p>
       </div>
-      <a href="/products?sort=newest" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">View all</a>
+      <a href="/products?sort=newest" class="text-sm font-semibold text-gold-600 hover:text-gold-500 dark:text-gold-400">View all</a>
     </div>
     <div id="new-arrivals-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
   </section>
@@ -83,9 +98,9 @@
     <div class="anim-fade-up mb-8 flex items-end justify-between">
       <div>
         <h2 class="text-2xl font-bold text-slate-900 dark:text-white">Great Value Picks</h2>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Quality essentials at the best prices</p>
+        <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Quality essentials at the best prices</p>
       </div>
-      <a href="/products?sort=price_asc" class="text-sm font-semibold text-indigo-600 hover:text-indigo-500 dark:text-indigo-400">View all</a>
+      <a href="/products?sort=price_asc" class="text-sm font-semibold text-gold-600 hover:text-gold-500 dark:text-gold-400">View all</a>
     </div>
     <div id="trending-grid" class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"></div>
   </section>
@@ -93,30 +108,31 @@
   <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
     <h2 class="anim-fade-up mb-8 text-center text-2xl font-bold text-slate-900 dark:text-white">Why Choose Us</h2>
     <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      <div class="anim-fade-up rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-500/10 text-indigo-600 dark:text-indigo-400"><i data-lucide="truck" class="h-6 w-6"></i></span>
-        <h3 class="mt-4 text-sm font-semibold text-slate-800 dark:text-slate-100">Fast Delivery</h3>
-        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Get your orders quickly and reliably.</p>
+      <div class="anim-fade-up rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+        <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-500/10 text-gold-600 dark:text-gold-400"><i data-lucide="truck" class="h-6 w-6"></i></span>
+        <h3 class="mt-4 text-sm font-semibold text-slate-800 dark:text-neutral-100">Fast Delivery</h3>
+        <p class="mt-1 text-xs text-slate-500 dark:text-neutral-400">Get your orders quickly and reliably.</p>
       </div>
-      <div class="anim-fade-up rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div class="anim-fade-up rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
         <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-emerald-500/10 text-emerald-600 dark:text-emerald-400"><i data-lucide="shield-check" class="h-6 w-6"></i></span>
-        <h3 class="mt-4 text-sm font-semibold text-slate-800 dark:text-slate-100">Secure Payment</h3>
-        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Your transactions are safe with us.</p>
+        <h3 class="mt-4 text-sm font-semibold text-slate-800 dark:text-neutral-100">Secure Payment</h3>
+        <p class="mt-1 text-xs text-slate-500 dark:text-neutral-400">Your transactions are safe with us.</p>
       </div>
-      <div class="anim-fade-up rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div class="anim-fade-up rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
         <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-amber-500/10 text-amber-600 dark:text-amber-400"><i data-lucide="badge-check" class="h-6 w-6"></i></span>
-        <h3 class="mt-4 text-sm font-semibold text-slate-800 dark:text-slate-100">Quality Products</h3>
-        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">Carefully vetted for lasting value.</p>
+        <h3 class="mt-4 text-sm font-semibold text-slate-800 dark:text-neutral-100">Quality Products</h3>
+        <p class="mt-1 text-xs text-slate-500 dark:text-neutral-400">Carefully vetted for lasting value.</p>
       </div>
-      <div class="anim-fade-up rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-slate-800 dark:bg-slate-900">
-        <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-400"><i data-lucide="headset" class="h-6 w-6"></i></span>
-        <h3 class="mt-4 text-sm font-semibold text-slate-800 dark:text-slate-100">24/7 Support</h3>
-        <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">We're here whenever you need us.</p>
+      <div class="anim-fade-up rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
+        <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gold-700/10 text-gold-800 dark:text-gold-400"><i data-lucide="headset" class="h-6 w-6"></i></span>
+        <h3 class="mt-4 text-sm font-semibold text-slate-800 dark:text-neutral-100">24/7 Support</h3>
+        <p class="mt-1 text-xs text-slate-500 dark:text-neutral-400">We're here whenever you need us.</p>
       </div>
     </div>
   </section>
 </main>
 <div id="site-footer"></div>
+<script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/js/customer/home.js"></script>
 </body>
 </html>

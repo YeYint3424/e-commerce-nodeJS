@@ -16,7 +16,13 @@ const updateValidators = [
   body('avatar').optional().trim(),
 ];
 
+const changePasswordValidators = [
+  body('currentPassword').notEmpty().withMessage('Current password is required'),
+  body('newPassword').isLength({ min: 6 }).withMessage('New password must be at least 6 characters long'),
+];
+
 router.get('/', profileController.getProfile);
 router.put('/', updateValidators, validate, profileController.updateProfile);
+router.patch('/password', changePasswordValidators, validate, profileController.changePassword);
 
 module.exports = router;

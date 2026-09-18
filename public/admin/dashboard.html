@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dashboard - Shoply Admin</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
+<div class="flex min-h-screen">
+  <div id="admin-sidebar-mount"></div>
+  <div class="flex min-w-0 flex-1 flex-col">
+    <div id="admin-topbar-mount"></div>
+    <main class="flex-1 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8">
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Dashboard</h1>
+        <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Store performance at a glance.</p>
+      </div>
+
+      <div id="summary-cards" class="grid grid-cols-2 gap-4 sm:grid-cols-2 lg:grid-cols-4"></div>
+
+      <div class="mt-8 grid grid-cols-1 gap-4 lg:grid-cols-2">
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+          <h2 class="text-sm font-semibold text-slate-700 dark:text-neutral-200">Sales Over Time</h2>
+          <div class="mt-4 h-72"><canvas id="chart-sales-by-day"></canvas></div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+          <h2 class="text-sm font-semibold text-slate-700 dark:text-neutral-200">Orders by Status</h2>
+          <div class="mt-4 h-72"><canvas id="chart-orders-by-status"></canvas></div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+          <h2 class="text-sm font-semibold text-slate-700 dark:text-neutral-200">Top Products by Revenue</h2>
+          <div class="mt-4 h-72"><canvas id="chart-top-products"></canvas></div>
+        </div>
+        <div class="rounded-2xl border border-slate-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+          <h2 class="text-sm font-semibold text-slate-700 dark:text-neutral-200">Sales by Category</h2>
+          <div class="mt-4 h-72"><canvas id="chart-sales-by-category"></canvas></div>
+        </div>
+      </div>
+
+      <div class="mt-8 rounded-2xl border border-slate-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
+        <h2 class="text-sm font-semibold text-slate-700 dark:text-neutral-200">Recent Orders</h2>
+        <div class="mt-4 overflow-x-auto">
+          <table class="w-full min-w-[640px] text-left text-sm">
+            <thead>
+              <tr class="border-b border-slate-200 text-xs font-semibold uppercase tracking-wide text-slate-500 dark:border-neutral-800 dark:text-neutral-400">
+                <th class="py-2 pr-4">Order ID</th>
+                <th class="py-2 pr-4">Customer</th>
+                <th class="py-2 pr-4">Total</th>
+                <th class="py-2 pr-4">Payment</th>
+                <th class="py-2 pr-4">Status</th>
+                <th class="py-2 pr-4">Date</th>
+              </tr>
+            </thead>
+            <tbody id="recent-orders-body" class="divide-y divide-slate-100 dark:divide-neutral-800"></tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="admin-sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-slate-900/50 lg:hidden"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/admin/dashboard.js"></script>
+</body>
+</html>

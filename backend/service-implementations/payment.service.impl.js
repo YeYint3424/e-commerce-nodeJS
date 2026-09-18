@@ -3,6 +3,7 @@ const orderRepository = require('../repositories/order.repository');
 const paymentOptionRepository = require('../repositories/paymentOption.repository');
 const orderService = require('../services/order.service');
 const auditLogService = require('../services/auditLog.service');
+const notificationService = require('../services/notification.service');
 const AppError = require('../utils/AppError');
 const { ROLES, ORDER_STATUS, PAYMENT_STATUS, PAYMENT_TYPES } = require('../utils/constants');
 
@@ -75,6 +76,14 @@ async function uploadProof(customer, paymentId, file) {
   payment.proofImage = `/uploads/payment-proofs/${file.filename}`;
   await payment.save();
 
+  await notificationService.notifyStaffAdmin({
+    type: 'PAYMENT_PROOF_UPLOADED',
+    title: 'Payment proof uploaded',
+    message: `${customer.name} uploaded a payment proof for review`,
+    entityType: 'Payment',
+    entityId: payment._id,
+  });
+
   return payment.toJSON();
 }
 
@@ -107,6 +116,17 @@ async function verifyPayment(caller, paymentId) {
     oldValue: { status: previousStatus },
     newValue: { status: PAYMENT_STATUS.VERIFIED },
   });
+
+  const order = await getOwningOrder(payment);
+  if (order) {
+    await notificationService.notifyUser(order.customer, {
+      type: 'PAYMENT_VERIFIED',
+      title: 'Payment verified',
+      message: 'Your payment has been verified',
+      entityType: 'Payment',
+      entityId: payment._id,
+    });
+  }
 
   return payment.toJSON();
 }
@@ -143,6 +163,17 @@ async function rejectPayment(caller, paymentId, reason) {
     oldValue: { status: previousStatus },
     newValue: { status: PAYMENT_STATUS.REJECTED },
   });
+
+  const order = await getOwningOrder(payment);
+  if (order) {
+    await notificationService.notifyUser(order.customer, {
+      type: 'PAYMENT_REJECTED',
+      title: 'Payment rejected',
+      message: `Your payment was rejected: ${trimmedReason}`,
+      entityType: 'Payment',
+      entityId: payment._id,
+    });
+  }
 
   await orderService.changeStatus(caller, payment.order.toString(), ORDER_STATUS.PAYMENT_FAILED, `Payment rejected: ${trimmedReason}`);
 

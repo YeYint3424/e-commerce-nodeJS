@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Categories - Shoply Admin</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
+<div class="flex min-h-screen">
+  <div id="admin-sidebar-mount"></div>
+  <div class="flex min-w-0 flex-1 flex-col">
+    <div id="admin-topbar-mount"></div>
+    <main class="flex-1 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8">
+      <div class="mb-6 flex flex-wrap items-center justify-between gap-3">
+        <div>
+          <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Categories</h1>
+          <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Organize products into categories.</p>
+        </div>
+        <button type="button" id="create-category-btn" class="flex items-center gap-2 rounded-full bg-gold-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-gold-500">
+          <i data-lucide="plus" class="h-4 w-4"></i> Add Category
+        </button>
+      </div>
+
+      <div class="mb-6 flex flex-wrap items-center gap-3">
+        <div class="flex min-w-[220px] flex-1 items-center gap-2 rounded-full border border-slate-200 bg-white px-4 py-2 dark:border-neutral-700 dark:bg-neutral-900">
+          <i data-lucide="search" class="h-4 w-4 text-slate-400"></i>
+          <input id="filter-search" type="search" placeholder="Search categories..." class="w-full bg-transparent text-sm outline-none placeholder:text-slate-400 dark:text-white" />
+        </div>
+        <select id="filter-status" class="rounded-full border border-slate-200 bg-white px-3 py-2 text-sm dark:border-neutral-700 dark:bg-neutral-900">
+          <option value="">All Statuses</option>
+          <option value="ACTIVE">Active</option>
+          <option value="INACTIVE">Inactive</option>
+        </select>
+      </div>
+
+      <div id="categories-table"></div>
+    </main>
+  </div>
+</div>
+<div id="admin-sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-slate-900/50 lg:hidden"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/admin/categories.js"></script>
+</body>
+</html>

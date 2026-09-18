@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Profile - Shoply</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
+<div id="site-header"></div>
+<main class="mx-auto max-w-3xl px-4 py-10 sm:px-6 lg:px-8">
+  <h1 class="anim-fade-up text-2xl font-bold text-slate-900 dark:text-white">My Profile</h1>
+  <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Manage your personal information and account security.</p>
+
+  <div id="profile-loading" class="mt-8 flex items-center justify-center rounded-2xl border border-slate-200 bg-white py-16 dark:border-neutral-800 dark:bg-neutral-900">
+    <i data-lucide="loader-2" class="h-6 w-6 animate-spin text-gold-500"></i>
+  </div>
+
+  <div id="profile-content" class="mt-8 hidden space-y-8">
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
+      <div class="mb-6 flex items-center gap-4">
+        <span id="profile-avatar-initial" class="flex h-16 w-16 shrink-0 items-center justify-center rounded-full bg-gold-100 text-xl font-bold text-gold-700 dark:bg-gold-900 dark:text-gold-300"></span>
+        <div class="min-w-0">
+          <p id="profile-name-display" class="truncate text-lg font-bold text-slate-900 dark:text-white"></p>
+          <p id="profile-email-display" class="truncate text-sm text-slate-500 dark:text-neutral-400"></p>
+        </div>
+      </div>
+
+      <h2 class="text-sm font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500">Personal Information</h2>
+      <form id="profile-form" class="mt-4 space-y-4" novalidate>
+        <div>
+          <label for="profile-name" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Full Name</label>
+          <input id="profile-name" name="name" type="text" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+          <p data-error-for="name" class="mt-1 text-xs text-rose-500"></p>
+        </div>
+        <div>
+          <label for="profile-email" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Email</label>
+          <input id="profile-email" type="email" disabled class="w-full cursor-not-allowed rounded-xl border border-slate-200 bg-slate-100 px-4 py-2.5 text-sm text-slate-500 outline-none dark:border-neutral-700 dark:bg-neutral-800/50 dark:text-neutral-400" />
+          <p class="mt-1 text-xs text-slate-400">Email address cannot be changed.</p>
+        </div>
+
+        <h3 class="pt-2 text-sm font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500">Contact Information</h3>
+        <div>
+          <label for="profile-phone" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Phone Number</label>
+          <input id="profile-phone" name="phone" type="tel" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+          <p data-error-for="phone" class="mt-1 text-xs text-rose-500"></p>
+        </div>
+
+        <h3 class="pt-2 text-sm font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500">Address</h3>
+        <div>
+          <label for="profile-address" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Shipping Address</label>
+          <textarea id="profile-address" name="address" rows="2" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900"></textarea>
+          <p data-error-for="address" class="mt-1 text-xs text-rose-500"></p>
+        </div>
+
+        <button type="submit" id="profile-save-btn" class="w-full rounded-xl bg-gold-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-gold-500 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-8">Save Changes</button>
+      </form>
+    </section>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
+      <h2 class="text-sm font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500">Change Password</h2>
+      <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Choose a strong password you don't use elsewhere.</p>
+      <form id="password-form" class="mt-4 space-y-4" novalidate>
+        <div>
+          <label for="current-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Current Password</label>
+          <div class="relative">
+            <input id="current-password" name="currentPassword" type="password" autocomplete="current-password" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 pr-11 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+            <button type="button" data-toggle-password="current-password" aria-label="Show password" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-neutral-700">
+              <i data-lucide="eye" class="h-4 w-4"></i>
+            </button>
+          </div>
+          <p data-error-for="currentPassword" class="mt-1 text-xs text-rose-500"></p>
+        </div>
+        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+          <div>
+            <label for="new-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">New Password</label>
+            <div class="relative">
+              <input id="new-password" name="newPassword" type="password" autocomplete="new-password" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 pr-11 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+              <button type="button" data-toggle-password="new-password" aria-label="Show password" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-neutral-700">
+                <i data-lucide="eye" class="h-4 w-4"></i>
+              </button>
+            </div>
+            <p data-error-for="newPassword" class="mt-1 text-xs text-rose-500"></p>
+          </div>
+          <div>
+            <label for="confirm-new-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Confirm New Password</label>
+            <div class="relative">
+              <input id="confirm-new-password" name="confirmNewPassword" type="password" autocomplete="new-password" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 pr-11 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+              <button type="button" data-toggle-password="confirm-new-password" aria-label="Show password" class="absolute right-2 top-1/2 -translate-y-1/2 rounded-lg p-1.5 text-slate-400 hover:bg-slate-100 dark:hover:bg-neutral-700">
+                <i data-lucide="eye" class="h-4 w-4"></i>
+              </button>
+            </div>
+            <p data-error-for="confirmNewPassword" class="mt-1 text-xs text-rose-500"></p>
+          </div>
+        </div>
+        <button type="submit" id="password-save-btn" class="w-full rounded-xl bg-gold-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-gold-500 disabled:cursor-not-allowed disabled:opacity-60 sm:w-auto sm:px-8">Update Password</button>
+      </form>
+    </section>
+  </div>
+</main>
+<div id="site-footer"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/customer/profile.js"></script>
+</body>
+</html>

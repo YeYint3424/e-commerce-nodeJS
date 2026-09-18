@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Profile - Shoply Admin</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
+<div class="flex min-h-screen">
+  <div id="admin-sidebar-mount"></div>
+  <div class="flex min-w-0 flex-1 flex-col">
+    <div id="admin-topbar-mount"></div>
+    <main class="flex-1 overflow-x-hidden px-4 py-6 sm:px-6 lg:px-8">
+      <div class="mb-6">
+        <h1 class="text-2xl font-bold text-slate-900 dark:text-white">Profile</h1>
+        <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Manage your account information.</p>
+      </div>
+
+      <div class="max-w-xl rounded-2xl border border-slate-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
+        <div class="mb-6 flex items-center gap-4">
+          <span id="profile-avatar-initial" class="flex h-16 w-16 items-center justify-center rounded-full bg-gold-100 text-xl font-bold text-gold-700 dark:bg-gold-900 dark:text-gold-300"></span>
+          <div>
+            <p id="profile-name-display" class="text-lg font-bold text-slate-900 dark:text-white"></p>
+            <p id="profile-role-display" class="text-sm text-slate-500 dark:text-neutral-400"></p>
+          </div>
+        </div>
+
+        <form id="profile-form" class="space-y-4">
+          <div>
+            <label class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Name</label>
+            <input required name="name" id="profile-name" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+          </div>
+          <div>
+            <label class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Email</label>
+            <input disabled id="profile-email" class="w-full cursor-not-allowed rounded-xl border border-slate-200 bg-slate-100 px-4 py-2.5 text-sm text-slate-500 outline-none dark:border-neutral-700 dark:bg-neutral-800/50 dark:text-neutral-400" />
+          </div>
+          <div>
+            <label class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Phone</label>
+            <input name="phone" id="profile-phone" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+          </div>
+          <div>
+            <label class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Address</label>
+            <input name="address" id="profile-address" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+          </div>
+          <button type="submit" class="w-full rounded-xl bg-gold-600 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-gold-500">Save Changes</button>
+        </form>
+      </div>
+    </main>
+  </div>
+</div>
+<div id="admin-sidebar-backdrop" class="fixed inset-0 z-30 hidden bg-slate-900/50 lg:hidden"></div>
+<script src="/socket.io/socket.io.js"></script>
+<script type="module" src="/js/admin/profile.js"></script>
+</body>
+</html>

@@ -11,4 +11,10 @@ const updateProfile = wrapAsync(async (req, res) => {
   return sendSuccess(res, { message: 'Profile updated', data: { user } });
 });
 
-module.exports = { getProfile, updateProfile };
+const changePassword = wrapAsync(async (req, res) => {
+  const { currentPassword, newPassword } = req.body;
+  await profileService.changePassword(req.user._id, currentPassword, newPassword);
+  return sendSuccess(res, { message: 'Password changed successfully', data: null });
+});
+
+module.exports = { getProfile, updateProfile, changePassword };

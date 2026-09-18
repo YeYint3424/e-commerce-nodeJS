@@ -1,9 +1,11 @@
 require('dotenv').config();
 
 const http = require('http');
+const { Server } = require('socket.io');
 const createApp = require('./app');
 const appConfig = require('./configs/app.config');
 const { connectDatabase } = require('./configs/database');
+const { registerNotificationSocket } = require('./sockets/notification.socket');
 
 async function start() {
   await connectDatabase();
@@ -11,14 +13,17 @@ async function start() {
   const app = createApp();
   const server = http.createServer(app);
 
+  const io = new Server(server, {
+    cors: { origin: appConfig.clientOrigin, credentials: true },
+  });
+  registerNotificationSocket(io);
+
   server.listen(appConfig.port, () => {
-    // eslint-disable-next-line no-console
     console.log(`Server running on port ${appConfig.port} [${appConfig.nodeEnv}]`);
   });
 }
 
 start().catch((err) => {
-  // eslint-disable-next-line no-console
   console.error('Failed to start server:', err);
   process.exit(1);
 });

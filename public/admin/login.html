@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Staff Login - Shoply Admin</title>
+<script>
+(function () {
+  var stored = localStorage.getItem('theme');
+  var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+  if (stored === 'dark' || (!stored && prefersDark)) {
+    document.documentElement.classList.add('dark');
+  }
+})();
+</script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
+        },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
+      },
+    },
+  };
+</script>
+<link rel="stylesheet" href="/css/animations.css" />
+<link rel="stylesheet" href="/css/main.css" />
+<script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body class="min-h-screen bg-slate-100 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
+<main class="mx-auto flex min-h-screen max-w-md flex-col justify-center px-4 py-16 sm:px-6">
+  <div class="anim-scale-in rounded-3xl border border-slate-200 bg-white p-8 shadow-xl dark:border-neutral-800 dark:bg-neutral-900">
+    <div class="mb-6 text-center">
+      <span class="mx-auto flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-slate-800 to-slate-600 text-white"><i data-lucide="shield" class="h-6 w-6"></i></span>
+      <span class="mt-4 inline-flex items-center gap-1 rounded-full border border-slate-300 px-3 py-1 text-[11px] font-semibold uppercase tracking-wide text-slate-500 dark:border-neutral-700 dark:text-neutral-400">Staff &amp; Admin Portal</span>
+      <h1 class="mt-3 text-2xl font-bold text-slate-900 dark:text-white">Shoply Admin</h1>
+      <p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">Sign in with your staff, HR, or admin account</p>
+    </div>
+    <form id="login-form" class="space-y-4" novalidate>
+      <div>
+        <label for="login-email" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Email</label>
+        <input id="login-email" type="email" autocomplete="email" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-neutral-700" />
+        <p data-error-for="email" class="mt-1 text-xs text-rose-500"></p>
+      </div>
+      <div>
+        <label for="login-password" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Password</label>
+        <input id="login-password" type="password" autocomplete="current-password" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-slate-500 focus:ring-2 focus:ring-slate-200 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-neutral-700" />
+        <p data-error-for="password" class="mt-1 text-xs text-rose-500"></p>
+      </div>
+      <button id="login-submit" type="submit" class="w-full rounded-xl bg-slate-900 py-2.5 text-sm font-semibold text-white shadow-sm transition-colors hover:bg-slate-700 dark:bg-white dark:text-neutral-900 dark:hover:bg-neutral-200">Sign In</button>
+    </form>
+    <p class="mt-6 text-center text-xs text-slate-400 dark:text-neutral-500">Admin, staff and HR accounts are provisioned by an administrator. Not staff? <a href="/login" class="font-semibold text-slate-600 hover:text-slate-900 dark:text-neutral-300 dark:hover:text-white">Customer login</a></p>
+  </div>
+</main>
+<script type="module" src="/js/admin/login.js"></script>
+</body>
+</html>

@@ -22,6 +22,21 @@
         fontFamily: {
           sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
       },
     },
   };
@@ -30,7 +45,7 @@
 <link rel="stylesheet" href="/css/main.css" />
 <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
 <div id="site-header"></div>
 <main class="mx-auto max-w-2xl px-4 py-10 sm:px-6 lg:px-8">
   <div class="flex flex-col items-center gap-4 rounded-2xl border border-rose-200 bg-rose-50 py-16 text-center dark:border-rose-800 dark:bg-rose-950/40">
@@ -44,6 +59,7 @@
   </div>
 </main>
 <div id="site-footer"></div>
+<script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/js/customer/order-failed.js"></script>
 </body>
 </html>

@@ -160,7 +160,7 @@ describe('Dashboard module', () => {
   });
 
   describe('ordersByStatus', () => {
-    it('includes every ORDER_STATUS key, including zero-count ones', async () => {
+    it('is limited to the dashboard breakdown statuses, including zero-count ones', async () => {
       await seedDataset();
       const { token } = await createUserAndToken({ role: 'STAFF' });
 
@@ -172,15 +172,11 @@ describe('Dashboard module', () => {
       });
 
       expect(Object.keys(byStatus).sort()).toEqual(
-        ['PENDING', 'CONFIRMED', 'PROCESSING', 'SHIPPED', 'DELIVERED', 'CANCELLED', 'PAYMENT_FAILED', 'COMPLETED'].sort()
+        ['PENDING', 'CONFIRMED', 'CANCELLED', 'PAYMENT_FAILED'].sort()
       );
       expect(byStatus.PENDING).toBe(1);
       expect(byStatus.CANCELLED).toBe(1);
       expect(byStatus.CONFIRMED).toBe(1);
-      expect(byStatus.PROCESSING).toBe(1);
-      expect(byStatus.COMPLETED).toBe(1);
-      expect(byStatus.SHIPPED).toBe(0);
-      expect(byStatus.DELIVERED).toBe(0);
       expect(byStatus.PAYMENT_FAILED).toBe(0);
     });
   });

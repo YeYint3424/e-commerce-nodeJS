@@ -6,7 +6,7 @@ function notFoundHandler(req, res, next) {
   next(new AppError(`Route not found: ${req.originalUrl}`, 404, 'NOT_FOUND'));
 }
 
-function errorHandler(err, req, res, next) { // eslint-disable-line no-unused-vars
+function errorHandler(err, req, res, next) {
   let statusCode = err.statusCode || 500;
   let message = err.message || 'Internal server error';
   let code = err.code || 'INTERNAL_ERROR';
@@ -49,7 +49,6 @@ function errorHandler(err, req, res, next) { // eslint-disable-line no-unused-va
   }
 
   if (!appConfig.isProduction && !appConfig.isTest) {
-    // eslint-disable-next-line no-console
     console.error(err);
   }
 

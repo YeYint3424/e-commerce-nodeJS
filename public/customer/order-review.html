@@ -22,6 +22,21 @@
         fontFamily: {
           sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
       },
     },
   };
@@ -30,15 +45,15 @@
 <link rel="stylesheet" href="/css/main.css" />
 <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
 <div id="site-header"></div>
 <main class="mx-auto max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
   <h1 class="anim-fade-up text-2xl font-bold text-slate-900 dark:text-white">Order Review</h1>
 
-  <div id="review-empty" class="hidden mt-8 flex-col items-center gap-4 rounded-2xl border border-dashed border-slate-300 py-20 text-center dark:border-slate-700">
+  <div id="review-empty" class="hidden mt-8 flex-col items-center gap-4 rounded-2xl border border-dashed border-slate-300 py-20 text-center dark:border-neutral-700">
     <i data-lucide="shopping-cart" class="h-12 w-12 text-slate-300"></i>
-    <p class="text-lg font-semibold text-slate-600 dark:text-slate-300">Your cart is empty</p>
-    <a href="/products" class="rounded-full bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-500">Continue Shopping</a>
+    <p class="text-lg font-semibold text-slate-600 dark:text-neutral-300">Your cart is empty</p>
+    <a href="/products" class="rounded-full bg-gold-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-gold-500">Continue Shopping</a>
   </div>
 
   <div id="review-success" class="hidden mt-8 flex-col items-center gap-4 rounded-2xl border border-emerald-200 bg-emerald-50 py-16 text-center dark:border-emerald-800 dark:bg-emerald-950/40">
@@ -58,40 +73,57 @@
 
       <section>
         <h2 class="text-lg font-bold text-slate-900 dark:text-white">Shipping Information</h2>
-        <form id="shipping-form" class="mt-4 space-y-4 rounded-2xl border border-slate-200 bg-white p-6 dark:border-slate-800 dark:bg-slate-900">
+        <form id="shipping-form" class="mt-4 space-y-6 rounded-2xl border border-slate-200 bg-white p-6 dark:border-neutral-800 dark:bg-neutral-900">
           <div>
-            <label for="shipping-name" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Full Name</label>
-            <input id="shipping-name" type="text" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-indigo-900" />
+            <label for="shipping-name" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Full Name</label>
+            <input id="shipping-name" type="text" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
             <p data-error-for="name" class="mt-1 text-xs text-rose-500"></p>
           </div>
-          <div>
-            <label for="shipping-phone" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Phone</label>
-            <input id="shipping-phone" type="tel" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-indigo-900" />
-            <p data-error-for="phone" class="mt-1 text-xs text-rose-500"></p>
+
+          <div class="border-t border-slate-100 pt-5 dark:border-neutral-800">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500">Contact Information</h3>
+            <div class="mt-3">
+              <label for="shipping-phone" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Phone Number</label>
+              <input id="shipping-phone" type="tel" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900" />
+              <p data-error-for="phone" class="mt-1 text-xs text-rose-500"></p>
+              <label class="mt-2 flex cursor-pointer items-center gap-2 text-sm text-slate-600 dark:text-neutral-300">
+                <input id="save-phone-checkbox" type="checkbox" class="h-4 w-4 shrink-0 rounded border-slate-300 text-gold-600 focus:ring-2 focus:ring-gold-200 dark:border-neutral-600 dark:bg-neutral-800" />
+                Save this phone number to my profile
+              </label>
+            </div>
           </div>
-          <div>
-            <label for="shipping-address" class="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-300">Address</label>
-            <input id="shipping-address" type="text" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:border-slate-700 dark:bg-slate-800 dark:text-white dark:focus:ring-indigo-900" />
-            <p data-error-for="address" class="mt-1 text-xs text-rose-500"></p>
+
+          <div class="border-t border-slate-100 pt-5 dark:border-neutral-800">
+            <h3 class="text-sm font-bold uppercase tracking-wide text-slate-400 dark:text-neutral-500">Shipping Address</h3>
+            <div class="mt-3">
+              <label for="shipping-address" class="mb-1 block text-sm font-medium text-slate-700 dark:text-neutral-300">Address</label>
+              <textarea id="shipping-address" rows="2" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-4 py-2.5 text-sm outline-none focus:border-gold-400 focus:ring-2 focus:ring-gold-100 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white dark:focus:ring-gold-900"></textarea>
+              <p data-error-for="address" class="mt-1 text-xs text-rose-500"></p>
+              <label class="mt-2 flex cursor-pointer items-center gap-2 text-sm text-slate-600 dark:text-neutral-300">
+                <input id="save-address-checkbox" type="checkbox" class="h-4 w-4 shrink-0 rounded border-slate-300 text-gold-600 focus:ring-2 focus:ring-gold-200 dark:border-neutral-600 dark:bg-neutral-800" />
+                Save this address to my profile
+              </label>
+            </div>
           </div>
         </form>
       </section>
     </div>
 
-    <aside class="h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <aside class="h-fit rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-neutral-800 dark:bg-neutral-900">
       <h2 class="text-lg font-bold text-slate-900 dark:text-white">Order Summary</h2>
       <div class="mt-4 space-y-2 text-sm">
-        <div class="flex justify-between text-slate-500 dark:text-slate-400"><span>Items</span><span id="review-item-count">0</span></div>
-        <div class="flex justify-between text-slate-600 dark:text-slate-300"><span>Subtotal</span><span id="review-subtotal">$0.00</span></div>
+        <div class="flex justify-between text-slate-500 dark:text-neutral-400"><span>Items</span><span id="review-item-count">0</span></div>
+        <div class="flex justify-between text-slate-600 dark:text-neutral-300"><span>Subtotal</span><span id="review-subtotal">$0.00</span></div>
       </div>
-      <div class="my-4 border-t border-slate-200 dark:border-slate-800"></div>
+      <div class="my-4 border-t border-slate-200 dark:border-neutral-800"></div>
       <div class="flex justify-between text-base font-bold text-slate-900 dark:text-white"><span>Total</span><span id="review-total">$0.00</span></div>
-      <button type="button" id="place-order-btn" class="mt-6 w-full rounded-xl bg-indigo-600 py-3 text-sm font-semibold text-white hover:bg-indigo-500 disabled:cursor-not-allowed disabled:opacity-60">Place Order</button>
-      <a href="/cart" class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400"><i data-lucide="arrow-left" class="h-4 w-4"></i>Back to Cart</a>
+      <button type="button" id="place-order-btn" class="mt-6 w-full rounded-xl bg-gold-600 py-3 text-sm font-semibold text-white hover:bg-gold-500 disabled:cursor-not-allowed disabled:opacity-60">Place Order</button>
+      <a href="/cart" class="mt-4 inline-flex items-center gap-2 text-sm font-medium text-gold-600 hover:text-gold-500 dark:text-gold-400"><i data-lucide="arrow-left" class="h-4 w-4"></i>Back to Cart</a>
     </aside>
   </div>
 </main>
 <div id="site-footer"></div>
+<script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/js/customer/order-review.js"></script>
 </body>
 </html>

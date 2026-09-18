@@ -39,7 +39,6 @@ export async function downloadVoucherPdf(id) {
         message = payload.message;
       }
     } catch (err) {
-      // response body was not JSON (e.g. an actual PDF stream); keep default message
     }
     const error = new Error(message);
     error.status = response.status;

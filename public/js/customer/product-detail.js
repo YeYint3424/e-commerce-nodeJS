@@ -20,7 +20,7 @@ function getIdFromPath() {
 function renderGallery(images, name) {
   const wrap = qs('#detail-gallery');
   if (!images || !images.length) {
-    wrap.innerHTML = `<div class="flex aspect-square items-center justify-center rounded-3xl bg-gradient-to-br from-indigo-100 via-fuchsia-100 to-amber-100 dark:from-indigo-950 dark:via-fuchsia-950 dark:to-slate-900"><i data-lucide="image" class="h-16 w-16 text-indigo-300 dark:text-indigo-700"></i></div>`;
+    wrap.innerHTML = `<div class="flex aspect-square items-center justify-center rounded-3xl bg-gradient-to-br from-gold-100 via-gold-200 to-amber-100 dark:from-gold-950 dark:via-gold-900 dark:to-neutral-900"><i data-lucide="image" class="h-16 w-16 text-gold-300 dark:text-gold-700"></i></div>`;
     if (window.lucide) {
       window.lucide.createIcons();
     }
@@ -28,7 +28,7 @@ function renderGallery(images, name) {
   }
 
   wrap.innerHTML = `
-    <div class="aspect-square overflow-hidden rounded-3xl border border-slate-200 dark:border-slate-800">
+    <div class="aspect-square overflow-hidden rounded-3xl border border-slate-200 dark:border-neutral-800">
       <img id="gallery-main" src="${escapeHtml(images[0])}" alt="${escapeHtml(name)}" class="h-full w-full object-cover" />
     </div>
     ${
@@ -38,7 +38,7 @@ function renderGallery(images, name) {
               .map(
                 (img, i) =>
                   `<button type="button" data-thumb="${escapeHtml(img)}" class="h-16 w-16 shrink-0 overflow-hidden rounded-xl border ${
-                    i === 0 ? 'border-indigo-500' : 'border-slate-200 dark:border-slate-700'
+                    i === 0 ? 'border-gold-500' : 'border-slate-200 dark:border-neutral-700'
                   }"><img src="${escapeHtml(img)}" alt="" class="h-full w-full object-cover" /></button>`
               )
               .join('')}
@@ -50,8 +50,8 @@ function renderGallery(images, name) {
   wrap.querySelectorAll('[data-thumb]').forEach((btn) => {
     btn.addEventListener('click', () => {
       qs('#gallery-main').src = btn.dataset.thumb;
-      wrap.querySelectorAll('[data-thumb]').forEach((b) => b.classList.remove('border-indigo-500'));
-      btn.classList.add('border-indigo-500');
+      wrap.querySelectorAll('[data-thumb]').forEach((b) => b.classList.remove('border-gold-500'));
+      btn.classList.add('border-gold-500');
     });
   });
 
@@ -124,7 +124,7 @@ function renderProduct(product) {
     paymentList.innerHTML = product.paymentOptions
       .map(
         (po) =>
-          `<span class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600 dark:border-slate-700 dark:text-slate-300"><i data-lucide="credit-card" class="h-3.5 w-3.5"></i>${escapeHtml(po.name)}</span>`
+          `<span class="inline-flex items-center gap-1.5 rounded-full border border-slate-200 px-3 py-1 text-xs font-medium text-slate-600 dark:border-neutral-700 dark:text-neutral-300"><i data-lucide="credit-card" class="h-3.5 w-3.5"></i>${escapeHtml(po.name)}</span>`
       )
       .join('');
   } else {

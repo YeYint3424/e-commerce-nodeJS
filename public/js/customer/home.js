@@ -39,9 +39,9 @@ async function loadCategories() {
     grid.innerHTML = categories
       .map(
         (category) => `
-          <a href="/products?category=${category._id}" class="anim-fade-up group flex flex-col items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg dark:border-slate-800 dark:bg-slate-900">
-            <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-indigo-500/10 to-fuchsia-500/10 text-indigo-600 transition-transform group-hover:scale-110 dark:text-indigo-400"><i data-lucide="shapes" class="h-6 w-6"></i></span>
-            <span class="text-sm font-semibold text-slate-700 dark:text-slate-200">${escapeHtml(category.name)}</span>
+          <a href="/products?category=${category._id}" class="anim-fade-up group flex flex-col items-center gap-3 rounded-2xl border border-slate-200 bg-white p-6 text-center shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg dark:border-neutral-800 dark:bg-neutral-900">
+            <span class="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-gold-500/10 to-gold-700/10 text-gold-600 transition-transform group-hover:scale-110 dark:text-gold-400"><i data-lucide="shapes" class="h-6 w-6"></i></span>
+            <span class="text-sm font-semibold text-slate-700 dark:text-neutral-200">${escapeHtml(category.name)}</span>
           </a>
         `
       )

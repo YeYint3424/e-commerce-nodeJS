@@ -10,6 +10,13 @@ const SALE_STATUSES = [
   ORDER_STATUS.COMPLETED,
 ];
 
+const DASHBOARD_STATUS_BREAKDOWN = [
+  ORDER_STATUS.PENDING,
+  ORDER_STATUS.CONFIRMED,
+  ORDER_STATUS.CANCELLED,
+  ORDER_STATUS.PAYMENT_FAILED,
+];
+
 const LOW_STOCK_THRESHOLD = 5;
 const TOP_PRODUCTS_LIMIT = 5;
 const RECENT_ORDERS_LIMIT = 10;
@@ -54,7 +61,7 @@ function fillSalesByDay(rows, startDate, days) {
 
 function fillOrdersByStatus(rows) {
   const map = new Map(rows.map((row) => [row._id, row.count]));
-  return Object.values(ORDER_STATUS).map((status) => ({
+  return DASHBOARD_STATUS_BREAKDOWN.map((status) => ({
     status,
     count: map.get(status) || 0,
   }));

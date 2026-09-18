@@ -2,9 +2,20 @@ const orderRepository = require('../repositories/order.repository');
 const productRepository = require('../repositories/product.repository');
 const userRepository = require('../repositories/user.repository');
 const auditLogService = require('../services/auditLog.service');
+const notificationService = require('../services/notification.service');
 const AppError = require('../utils/AppError');
 const { parsePagination, buildPaginationMeta } = require('../utils/pagination.util');
 const { ROLES, ORDER_STATUS } = require('../utils/constants');
+
+const STATUS_NOTIFICATION_TITLES = {
+  [ORDER_STATUS.CONFIRMED]: 'Your order has been confirmed',
+  [ORDER_STATUS.PROCESSING]: 'Your order is being processed',
+  [ORDER_STATUS.SHIPPED]: 'Your order has shipped',
+  [ORDER_STATUS.DELIVERED]: 'Your order has been delivered',
+  [ORDER_STATUS.COMPLETED]: 'Your order is complete',
+  [ORDER_STATUS.CANCELLED]: 'Your order was cancelled',
+  [ORDER_STATUS.PAYMENT_FAILED]: 'Your order payment failed',
+};
 
 const STATUS_TRANSITIONS = {
   [ORDER_STATUS.PENDING]: [ORDER_STATUS.CONFIRMED, ORDER_STATUS.CANCELLED, ORDER_STATUS.PAYMENT_FAILED],
@@ -95,6 +106,14 @@ async function createOrder(customer, data) {
     throw err;
   }
 
+  await notificationService.notifyStaffAdmin({
+    type: 'ORDER_CREATED',
+    title: 'New order received',
+    message: `${customer.name} placed a new order for ${subtotal.toFixed(2)}`,
+    entityType: 'Order',
+    entityId: order._id,
+  });
+
   return orderRepository.findById(order._id);
 }
 
@@ -110,10 +129,21 @@ async function listOrders(caller, query) {
     filter.customer = caller._id;
   } else {
     if (query.status) {
-      filter.status = query.status;
+      filter.status = query.status.includes(',') ? { $in: query.status.split(',') } : query.status;
     }
     if (query.customer) {
       filter.customer = query.customer;
+    }
+    if (query.startDate || query.endDate) {
+      filter.createdAt = {};
+      if (query.startDate) {
+        filter.createdAt.$gte = new Date(query.startDate);
+      }
+      if (query.endDate) {
+        const end = new Date(query.endDate);
+        end.setHours(23, 59, 59, 999);
+        filter.createdAt.$lte = end;
+      }
     }
     if (query.search) {
       const regex = new RegExp(query.search, 'i');
@@ -194,6 +224,14 @@ async function changeStatus(caller, orderId, status, reason) {
     newValue: { status },
   });
 
+  await notificationService.notifyUser(order.customer, {
+    type: 'ORDER_STATUS_CHANGED',
+    title: STATUS_NOTIFICATION_TITLES[status] || 'Your order status has changed',
+    message: reason ? `${status.replace(/_/g, ' ')}: ${reason}` : `Your order is now ${status.replace(/_/g, ' ').toLowerCase()}`,
+    entityType: 'Order',
+    entityId: order._id,
+  });
+
   return orderRepository.findById(order._id);
 }
 
@@ -236,6 +274,14 @@ async function cancelOrder(customer, orderId, reason) {
     reason: finalReason,
     oldValue: { status: ORDER_STATUS.PENDING },
     newValue: { status: ORDER_STATUS.CANCELLED },
+  });
+
+  await notificationService.notifyStaffAdmin({
+    type: 'ORDER_CANCELLED',
+    title: 'Customer cancelled an order',
+    message: `${customer.name} cancelled their order: ${finalReason}`,
+    entityType: 'Order',
+    entityId: order._id,
   });
 
   return orderRepository.findById(order._id);

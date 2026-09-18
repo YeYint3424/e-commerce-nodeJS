@@ -8,8 +8,7 @@
     "start": "node server.js",
     "test": "jest --runInBand",
     "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage --runInBand",
-    "seed": "node seeders/index.js"
+    "test:coverage": "jest --coverage --runInBand"
   },
   "dependencies": {
     "bcrypt": "^5.1.1",

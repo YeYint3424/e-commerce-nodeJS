@@ -1,7 +1,7 @@
 const userRepository = require('../repositories/user.repository');
 const { hashPassword } = require('../utils/password.util');
 const AppError = require('../utils/AppError');
-const { ROLES } = require('../utils/constants');
+const { ROLES, resolveAccountSpace } = require('../utils/constants');
 const { parsePagination, buildPaginationMeta } = require('../utils/pagination.util');
 
 const HR_MANAGEABLE_ROLES = [ROLES.STAFF, ROLES.HR];
@@ -30,7 +30,8 @@ async function createAccount(caller, data) {
     throw new AppError('HR can only create STAFF or HR accounts', 403, 'FORBIDDEN');
   }
 
-  const emailExists = await userRepository.existsByEmail(email);
+  const accountSpace = resolveAccountSpace(role);
+  const emailExists = await userRepository.existsByEmailInSpace(email, accountSpace);
   if (emailExists) {
     throw new AppError('Email already registered', 409, 'CONFLICT');
   }
@@ -44,6 +45,7 @@ async function createAccount(caller, data) {
     role,
     phone,
     address,
+    accountSpace,
   });
 
   return user.toJSON();
@@ -91,6 +93,14 @@ async function updateAccount(caller, id, data) {
 
   assertMutableTarget(caller, target);
 
+  if (data.email && data.email.toLowerCase().trim() !== target.email) {
+    const accountSpace = target.accountSpace || resolveAccountSpace(target.role);
+    const emailExists = await userRepository.existsByEmailInSpace(data.email, accountSpace, target._id);
+    if (emailExists) {
+      throw new AppError('Email already registered', 409, 'CONFLICT');
+    }
+  }
+
   const updates = {};
   ['name', 'phone', 'address', 'email', 'status'].forEach((field) => {
     if (data[field] !== undefined) {
@@ -126,7 +136,16 @@ async function changeRole(caller, id, newRole) {
     }
   }
 
-  const updated = await userRepository.updateById(id, { role: newRole });
+  const newAccountSpace = resolveAccountSpace(newRole);
+  const currentAccountSpace = target.accountSpace || resolveAccountSpace(target.role);
+  if (newAccountSpace !== currentAccountSpace) {
+    const emailExists = await userRepository.existsByEmailInSpace(target.email, newAccountSpace, target._id);
+    if (emailExists) {
+      throw new AppError('Another account with this email already exists in the destination space', 409, 'CONFLICT');
+    }
+  }
+
+  const updated = await userRepository.updateById(id, { role: newRole, accountSpace: newAccountSpace });
   return updated.toJSON();
 }
 

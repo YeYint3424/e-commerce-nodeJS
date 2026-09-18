@@ -58,19 +58,19 @@ function renderPagination(pagination) {
   }
 
   el.innerHTML = `
-    <button data-page="${page - 1}" ${page <= 1 ? 'disabled' : ''} class="rounded-full border border-slate-200 p-2 text-slate-500 disabled:opacity-40 dark:border-slate-700"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
+    <button data-page="${page - 1}" ${page <= 1 ? 'disabled' : ''} class="rounded-full border border-slate-200 p-2 text-slate-500 disabled:opacity-40 dark:border-neutral-700"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
     ${pages
       .map((p) =>
         p === '...'
           ? `<span class="px-2 text-slate-400">...</span>`
           : `<button data-page="${p}" class="h-9 w-9 rounded-full text-sm font-medium transition-colors ${
               p === page
-                ? 'bg-indigo-600 text-white'
-                : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
+                ? 'bg-gold-600 text-white'
+                : 'text-slate-600 hover:bg-slate-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
             }">${p}</button>`
       )
       .join('')}
-    <button data-page="${page + 1}" ${page >= totalPages ? 'disabled' : ''} class="rounded-full border border-slate-200 p-2 text-slate-500 disabled:opacity-40 dark:border-slate-700"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
+    <button data-page="${page + 1}" ${page >= totalPages ? 'disabled' : ''} class="rounded-full border border-slate-200 p-2 text-slate-500 disabled:opacity-40 dark:border-neutral-700"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
   `;
   if (window.lucide) {
     window.lucide.createIcons();
@@ -98,7 +98,7 @@ async function loadProducts() {
       grid.innerHTML = `
         <div class="col-span-full flex flex-col items-center gap-3 py-16 text-center">
           <i data-lucide="search-x" class="h-10 w-10 text-slate-300"></i>
-          <p class="text-lg font-semibold text-slate-600 dark:text-slate-300">No products found</p>
+          <p class="text-lg font-semibold text-slate-600 dark:text-neutral-300">No products found</p>
           <p class="text-sm text-slate-400">Try adjusting your filters or search term.</p>
         </div>
       `;

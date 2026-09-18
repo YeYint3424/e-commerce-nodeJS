@@ -1,13 +1,25 @@
 const User = require('../models/User');
-const { ROLES } = require('../utils/constants');
+const { ROLES, ACCOUNT_SPACES } = require('../utils/constants');
+
+const SPACE_FALLBACK_ROLES = {
+  [ACCOUNT_SPACES.CUSTOMER]: [ROLES.CUSTOMER],
+  [ACCOUNT_SPACES.STAFF]: [ROLES.STAFF, ROLES.HR, ROLES.ADMIN, ROLES.DEFAULT_ADMIN],
+};
+
+function spaceFilter(email, accountSpace) {
+  return {
+    email: email.toLowerCase().trim(),
+    $or: [{ accountSpace }, { accountSpace: { $exists: false }, role: { $in: SPACE_FALLBACK_ROLES[accountSpace] } }],
+  };
+}
 
 async function createUser(data) {
   const user = await User.create(data);
   return user;
 }
 
-async function findByEmail(email, { withPassword = false } = {}) {
-  const query = User.findOne({ email: email.toLowerCase().trim() });
+async function findByEmailInSpace(email, accountSpace, { withPassword = false } = {}) {
+  const query = User.findOne(spaceFilter(email, accountSpace));
   if (withPassword) {
     query.select('+password');
   }
@@ -16,6 +28,10 @@ async function findByEmail(email, { withPassword = false } = {}) {
 
 async function findById(id) {
   return User.findById(id).exec();
+}
+
+async function findByIdWithPassword(id) {
+  return User.findById(id).select('+password').exec();
 }
 
 async function findDefaultAdmin() {
@@ -30,8 +46,12 @@ async function updateById(id, data) {
   return User.findByIdAndUpdate(id, data, { new: true, runValidators: true }).exec();
 }
 
-async function existsByEmail(email) {
-  const count = await User.countDocuments({ email: email.toLowerCase().trim() });
+async function existsByEmailInSpace(email, accountSpace, excludeId) {
+  const filter = spaceFilter(email, accountSpace);
+  if (excludeId) {
+    filter._id = { $ne: excludeId };
+  }
+  const count = await User.countDocuments(filter);
   return count > 0;
 }
 
@@ -54,12 +74,13 @@ async function findIdsByEmailMatch(regex) {
 
 module.exports = {
   createUser,
-  findByEmail,
+  findByEmailInSpace,
   findById,
+  findByIdWithPassword,
   findDefaultAdmin,
   countDefaultAdmins,
   updateById,
-  existsByEmail,
+  existsByEmailInSpace,
   paginate,
   countByFilter,
   deleteById,

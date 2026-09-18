@@ -43,14 +43,14 @@ function optionCardHtml(option) {
   return `
     <button type="button" data-option-id="${escapeHtml(option._id)}" class="w-full rounded-2xl border p-4 text-left transition-colors ${
     selected
-      ? 'border-indigo-500 bg-indigo-50 dark:border-indigo-500 dark:bg-indigo-950/40'
-      : 'border-slate-200 bg-white hover:border-indigo-300 dark:border-slate-800 dark:bg-slate-900'
+      ? 'border-gold-500 bg-gold-50 dark:border-gold-500 dark:bg-gold-950/40'
+      : 'border-slate-200 bg-white hover:border-gold-300 dark:border-neutral-800 dark:bg-neutral-900'
   }">
       <div class="flex items-center justify-between gap-2">
         <p class="font-semibold text-slate-900 dark:text-white">${escapeHtml(option.name)}</p>
-        <span class="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500 dark:bg-slate-800 dark:text-slate-400">${escapeHtml(option.type)}</span>
+        <span class="shrink-0 rounded-full bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-500 dark:bg-neutral-800 dark:text-neutral-400">${escapeHtml(option.type)}</span>
       </div>
-      ${option.description ? `<p class="mt-1 text-sm text-slate-500 dark:text-slate-400">${escapeHtml(option.description)}</p>` : ''}
+      ${option.description ? `<p class="mt-1 text-sm text-slate-500 dark:text-neutral-400">${escapeHtml(option.description)}</p>` : ''}
     </button>
   `;
 }
@@ -65,7 +65,7 @@ function renderQrDetail() {
   panel.classList.remove('hidden');
   qs('#qr-account-info').textContent = option.accountInfo || '';
   qs('#qr-image-wrap').innerHTML = option.qrImage
-    ? `<img src="${escapeHtml(option.qrImage)}" alt="QR code" class="h-48 w-48 rounded-xl border border-slate-200 object-cover dark:border-slate-800" />`
+    ? `<img src="${escapeHtml(option.qrImage)}" alt="QR code" class="h-48 w-48 rounded-xl border border-slate-200 object-cover dark:border-neutral-800" />`
     : '';
 }
 
@@ -108,6 +108,22 @@ async function confirmPayment() {
     btn.disabled = false;
     btn.textContent = 'Confirm Payment Method';
   }
+}
+
+function previewProofFile() {
+  const fileInput = qs('#proof-file-input');
+  const wrap = qs('#proof-preview-wrap');
+  const img = qs('#proof-preview-img');
+  const file = fileInput.files && fileInput.files[0];
+
+  if (!file) {
+    wrap.classList.add('hidden');
+    img.src = '';
+    return;
+  }
+
+  img.src = URL.createObjectURL(file);
+  wrap.classList.remove('hidden');
 }
 
 async function submitProof() {
@@ -175,6 +191,7 @@ async function init() {
   renderOptions();
   qs('#confirm-payment-btn').addEventListener('click', confirmPayment);
   qs('#upload-proof-btn').addEventListener('click', submitProof);
+  qs('#proof-file-input').addEventListener('change', previewProofFile);
 
   if (window.lucide) {
     window.lucide.createIcons();

@@ -16,5 +16,6 @@ router.use('/orders', require('./order.routes'));
 router.use('/payments', require('./payment.routes'));
 router.use('/vouchers', require('./voucher.routes'));
 router.use('/dashboard', require('./dashboard.routes'));
+router.use('/notifications', require('./notification.routes'));
 
 module.exports = router;

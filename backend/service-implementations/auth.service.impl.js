@@ -2,7 +2,7 @@ const userRepository = require('../repositories/user.repository');
 const { hashPassword, comparePassword } = require('../utils/password.util');
 const { signToken } = require('../utils/jwt.util');
 const AppError = require('../utils/AppError');
-const { ROLES, ADMIN_PANEL_ROLES } = require('../utils/constants');
+const { ROLES, ADMIN_PANEL_ROLES, ACCOUNT_SPACES } = require('../utils/constants');
 
 function buildToken(user) {
   return signToken({ id: user._id.toString(), role: user.role });
@@ -11,7 +11,7 @@ function buildToken(user) {
 async function registerCustomer(data) {
   const { name, email, password, phone, address } = data;
 
-  const emailExists = await userRepository.existsByEmail(email);
+  const emailExists = await userRepository.existsByEmailInSpace(email, ACCOUNT_SPACES.CUSTOMER);
   if (emailExists) {
     throw new AppError('Email already registered', 409, 'CONFLICT');
   }
@@ -25,6 +25,7 @@ async function registerCustomer(data) {
     phone,
     address,
     role: ROLES.CUSTOMER,
+    accountSpace: ACCOUNT_SPACES.CUSTOMER,
   });
 
   const token = buildToken(user);
@@ -34,12 +35,8 @@ async function registerCustomer(data) {
 }
 
 async function loginCustomer(email, password) {
-  const user = await userRepository.findByEmail(email, { withPassword: true });
+  const user = await userRepository.findByEmailInSpace(email, ACCOUNT_SPACES.CUSTOMER, { withPassword: true });
   if (!user) {
-    throw new AppError('Invalid email or password', 401, 'UNAUTHORIZED');
-  }
-
-  if (user.role !== ROLES.CUSTOMER) {
     throw new AppError('Invalid email or password', 401, 'UNAUTHORIZED');
   }
 
@@ -59,13 +56,9 @@ async function loginCustomer(email, password) {
 }
 
 async function loginAdminPanel(email, password) {
-  const user = await userRepository.findByEmail(email, { withPassword: true });
+  const user = await userRepository.findByEmailInSpace(email, ACCOUNT_SPACES.STAFF, { withPassword: true });
   if (!user) {
     throw new AppError('Invalid email or password', 401, 'UNAUTHORIZED');
-  }
-
-  if (user.role === ROLES.CUSTOMER) {
-    throw new AppError('This login is for staff and administrators only', 403, 'FORBIDDEN');
   }
 
   if (!ADMIN_PANEL_ROLES.includes(user.role)) {
@@ -101,7 +94,7 @@ async function createDefaultAdmin({ name, email, password }) {
     throw new AppError('A default admin already exists', 409, 'CONFLICT');
   }
 
-  const emailExists = await userRepository.existsByEmail(email);
+  const emailExists = await userRepository.existsByEmailInSpace(email, ACCOUNT_SPACES.STAFF);
   if (emailExists) {
     throw new AppError('Email already registered', 409, 'CONFLICT');
   }
@@ -113,6 +106,7 @@ async function createDefaultAdmin({ name, email, password }) {
     email,
     password: hashedPassword,
     role: ROLES.DEFAULT_ADMIN,
+    accountSpace: ACCOUNT_SPACES.STAFF,
   });
 
   return user.toJSON();

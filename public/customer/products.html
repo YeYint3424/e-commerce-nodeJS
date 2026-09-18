@@ -22,6 +22,21 @@
         fontFamily: {
           sans: ['ui-sans-serif', 'system-ui', '-apple-system', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
         },
+        colors: {
+          gold: {
+            50: '#fdf8ec',
+            100: '#faedc4',
+            200: '#f5db8c',
+            300: '#edc35a',
+            400: '#e0a83e',
+            500: '#cc8f2e',
+            600: '#b8860b',
+            700: '#966b0a',
+            800: '#78560c',
+            900: '#63470f',
+            950: '#392808',
+          },
+        },
       },
     },
   };
@@ -30,37 +45,37 @@
 <link rel="stylesheet" href="/css/main.css" />
 <script src="https://unpkg.com/lucide@latest"></script>
 </head>
-<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-slate-950 dark:text-slate-100">
+<body class="min-h-screen bg-slate-50 font-sans text-slate-900 antialiased dark:bg-black dark:text-neutral-100">
 <div id="site-header"></div>
 <main class="mx-auto max-w-7xl px-4 py-10 sm:px-6 lg:px-8">
   <div class="anim-fade-up mb-8 flex flex-col gap-2">
     <h1 class="text-2xl font-bold text-slate-900 dark:text-white">All Products</h1>
-    <p class="text-sm text-slate-500 dark:text-slate-400">Browse our full catalog and filter to find exactly what you need.</p>
+    <p class="text-sm text-slate-500 dark:text-neutral-400">Browse our full catalog and filter to find exactly what you need.</p>
   </div>
   <div class="grid gap-8 lg:grid-cols-[260px_1fr]">
-    <aside class="anim-fade-up h-fit space-y-6 rounded-2xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+    <aside class="anim-fade-up h-fit space-y-6 rounded-2xl border border-slate-200 bg-white p-5 dark:border-neutral-800 dark:bg-neutral-900">
       <div>
-        <label for="filter-search" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Search</label>
-        <input id="filter-search" type="search" placeholder="Search products..." class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white" />
+        <label for="filter-search" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-neutral-400">Search</label>
+        <input id="filter-search" type="search" placeholder="Search products..." class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-gold-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white" />
       </div>
       <div>
-        <label for="filter-category" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Category</label>
-        <select id="filter-category" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white">
+        <label for="filter-category" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-neutral-400">Category</label>
+        <select id="filter-category" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-gold-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
           <option value="">All Categories</option>
         </select>
       </div>
       <form id="price-filter-form" class="space-y-2">
-        <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Price Range</label>
+        <label class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-neutral-400">Price Range</label>
         <div class="flex items-center gap-2">
-          <input id="filter-min" type="number" min="0" placeholder="Min" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white" />
+          <input id="filter-min" type="number" min="0" placeholder="Min" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-gold-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white" />
           <span class="text-slate-400">-</span>
-          <input id="filter-max" type="number" min="0" placeholder="Max" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white" />
+          <input id="filter-max" type="number" min="0" placeholder="Max" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-gold-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white" />
         </div>
-        <button type="submit" class="w-full rounded-xl bg-slate-900 py-2 text-sm font-semibold text-white hover:opacity-90 dark:bg-indigo-600">Apply</button>
+        <button type="submit" class="w-full rounded-xl bg-slate-900 py-2 text-sm font-semibold text-white hover:opacity-90 dark:bg-gold-600">Apply</button>
       </form>
       <div>
-        <label for="filter-sort" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">Sort by</label>
-        <select id="filter-sort" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-indigo-400 dark:border-slate-700 dark:bg-slate-800 dark:text-white">
+        <label for="filter-sort" class="mb-1 block text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-neutral-400">Sort by</label>
+        <select id="filter-sort" class="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm outline-none focus:border-gold-400 dark:border-neutral-700 dark:bg-neutral-800 dark:text-white">
           <option value="newest">Newest</option>
           <option value="price_asc">Price: Low to High</option>
           <option value="price_desc">Price: High to Low</option>
@@ -74,6 +89,7 @@
   </div>
 </main>
 <div id="site-footer"></div>
+<script src="/socket.io/socket.io.js"></script>
 <script type="module" src="/js/customer/products.js"></script>
 </body>
 </html>

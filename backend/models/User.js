@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { ROLES } = require('../utils/constants');
+const { ROLES, ACCOUNT_SPACES } = require('../utils/constants');
 
 const userSchema = new mongoose.Schema(
   {
@@ -11,7 +11,6 @@ const userSchema = new mongoose.Schema(
     email: {
       type: String,
       required: true,
-      unique: true,
       lowercase: true,
       trim: true,
     },
@@ -24,6 +23,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       enum: Object.values(ROLES),
       default: ROLES.CUSTOMER,
+    },
+    accountSpace: {
+      type: String,
+      enum: Object.values(ACCOUNT_SPACES),
     },
     phone: {
       type: String,
@@ -51,5 +54,7 @@ const userSchema = new mongoose.Schema(
     },
   }
 );
+
+userSchema.index({ email: 1, accountSpace: 1 }, { unique: true });
 
 module.exports = mongoose.model('User', userSchema);

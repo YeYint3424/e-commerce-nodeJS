@@ -52,4 +52,68 @@ describe('Profile module', () => {
       expect(res.body.data.user.status).toBe('ACTIVE');
     });
   });
+
+  describe('PATCH /api/profile/password', () => {
+    it('rejects requests without a token with 401', async () => {
+      const res = await request(app)
+        .patch('/api/profile/password')
+        .send({ currentPassword: 'password123', newPassword: 'newpassword456' });
+      expect(res.status).toBe(401);
+    });
+
+    it('rejects a missing currentPassword with 422', async () => {
+      const { token } = await createUserAndToken({ role: 'CUSTOMER' });
+
+      const res = await request(app)
+        .patch('/api/profile/password')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ newPassword: 'newpassword456' });
+
+      expect(res.status).toBe(422);
+    });
+
+    it('rejects a newPassword shorter than 6 characters with 422', async () => {
+      const { token } = await createUserAndToken({ role: 'CUSTOMER' });
+
+      const res = await request(app)
+        .patch('/api/profile/password')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ currentPassword: 'password123', newPassword: '123' });
+
+      expect(res.status).toBe(422);
+    });
+
+    it('rejects an incorrect currentPassword with 401', async () => {
+      const { token } = await createUserAndToken({ role: 'CUSTOMER' });
+
+      const res = await request(app)
+        .patch('/api/profile/password')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ currentPassword: 'wrong-password', newPassword: 'newpassword456' });
+
+      expect(res.status).toBe(401);
+      expect(res.body.error.code).toBe('INVALID_CREDENTIALS');
+    });
+
+    it('changes the password and allows logging in with the new password', async () => {
+      const { token, user } = await createUserAndToken({ role: 'CUSTOMER' });
+
+      const changeRes = await request(app)
+        .patch('/api/profile/password')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ currentPassword: 'password123', newPassword: 'newpassword456' });
+
+      expect(changeRes.status).toBe(200);
+
+      const oldLoginRes = await request(app)
+        .post('/api/auth/customer/login')
+        .send({ email: user.email, password: 'password123' });
+      expect(oldLoginRes.status).toBe(401);
+
+      const newLoginRes = await request(app)
+        .post('/api/auth/customer/login')
+        .send({ email: user.email, password: 'newpassword456' });
+      expect(newLoginRes.status).toBe(200);
+    });
+  });
 });

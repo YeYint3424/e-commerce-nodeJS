@@ -3,17 +3,20 @@ const Category = require('../../models/Category');
 const PaymentOption = require('../../models/PaymentOption');
 const { hashPassword } = require('../../utils/password.util');
 const { signToken } = require('../../utils/jwt.util');
+const { resolveAccountSpace } = require('../../utils/constants');
 
 let counter = 0;
 
 async function createUserAndToken(overrides = {}) {
   counter += 1;
   const hashed = await hashPassword('password123');
+  const role = overrides.role || 'CUSTOMER';
   const user = await User.create({
     name: overrides.name || `Test User ${counter}`,
     email: overrides.email || `test-user-${counter}@example.com`,
     password: hashed,
-    role: overrides.role || 'CUSTOMER',
+    role,
+    accountSpace: resolveAccountSpace(role),
     status: overrides.status || 'ACTIVE',
     phone: overrides.phone,
     address: overrides.address,

@@ -29,6 +29,14 @@ function persist({ token, user }) {
   window.dispatchEvent(new CustomEvent('auth:changed', { detail: { user } }));
 }
 
+export function updateCachedUser(updatedFields) {
+  const current = getUser();
+  const merged = { ...current, ...updatedFields };
+  localStorage.setItem(USER_KEY, JSON.stringify(merged));
+  window.dispatchEvent(new CustomEvent('auth:changed', { detail: { user: merged } }));
+  return merged;
+}
+
 export async function login(payload) {
   const res = await loginCustomer(payload);
   persist(res.data);

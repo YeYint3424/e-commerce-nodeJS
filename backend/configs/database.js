@@ -10,6 +10,8 @@ async function connectDatabase(uri) {
   mongoose.set('strictQuery', true);
   await mongoose.connect(connectionString);
 
+  await require('../models/User').syncIndexes();
+
   return mongoose.connection;
 }
 

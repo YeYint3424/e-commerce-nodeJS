@@ -29,7 +29,7 @@ router.get('/:id', categoryController.getCategory);
 router.post(
   '/',
   authenticate,
-  requireRole(ROLES.ADMIN, ROLES.DEFAULT_ADMIN),
+  requireRole(ROLES.ADMIN, ROLES.DEFAULT_ADMIN, ROLES.STAFF),
   createValidators,
   validate,
   categoryController.createCategory
@@ -38,7 +38,7 @@ router.post(
 router.put(
   '/:id',
   authenticate,
-  requireRole(ROLES.ADMIN, ROLES.DEFAULT_ADMIN),
+  requireRole(ROLES.ADMIN, ROLES.DEFAULT_ADMIN, ROLES.STAFF),
   updateValidators,
   validate,
   categoryController.updateCategory
@@ -47,7 +47,7 @@ router.put(
 router.delete(
   '/:id',
   authenticate,
-  requireRole(ROLES.ADMIN, ROLES.DEFAULT_ADMIN),
+  requireRole(ROLES.ADMIN, ROLES.DEFAULT_ADMIN, ROLES.STAFF),
   categoryController.deleteCategory
 );
 

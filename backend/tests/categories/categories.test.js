@@ -71,8 +71,8 @@ describe('Categories module', () => {
       expect(res.status).toBe(401);
     });
 
-    it('rejects a non-admin role with 403', async () => {
-      const { token } = await createUserAndToken({ role: 'STAFF' });
+    it('rejects a customer role with 403', async () => {
+      const { token } = await createUserAndToken({ role: 'CUSTOMER' });
 
       const res = await request(app)
         .post('/api/categories')
@@ -80,6 +80,17 @@ describe('Categories module', () => {
         .send({ name: 'Clothing' });
 
       expect(res.status).toBe(403);
+    });
+
+    it('allows a STAFF role to create a category', async () => {
+      const { token } = await createUserAndToken({ role: 'STAFF' });
+
+      const res = await request(app)
+        .post('/api/categories')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ name: 'Staff Created Category' });
+
+      expect(res.status).toBe(201);
     });
 
     it('rejects invalid payload with 422', async () => {

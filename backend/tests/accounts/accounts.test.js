@@ -138,6 +138,30 @@ describe('Accounts module', () => {
 
       expect(res.status).toBe(409);
     });
+
+    it('allows creating a STAFF account with an email already used by a CUSTOMER account', async () => {
+      const { token } = await createUserAndToken({ role: 'ADMIN' });
+      const email = 'reused-email@example.com';
+
+      const customerRes = await request(app)
+        .post('/api/auth/customer/register')
+        .send({ name: 'Customer Person', email, password: 'password123' });
+      expect(customerRes.status).toBe(201);
+
+      const staffRes = await request(app)
+        .post('/api/accounts')
+        .set('Authorization', `Bearer ${token}`)
+        .send({ name: 'Staff Person', email, password: 'password123', role: 'STAFF' });
+
+      expect(staffRes.status).toBe(201);
+      expect(staffRes.body.data.account.role).toBe('STAFF');
+      expect(staffRes.body.data.account._id).not.toBe(customerRes.body.data.user._id);
+
+      const staffCount = await User.countDocuments({ email, role: 'STAFF' });
+      const customerCount = await User.countDocuments({ email, role: 'CUSTOMER' });
+      expect(staffCount).toBe(1);
+      expect(customerCount).toBe(1);
+    });
   });
 
   describe('GET /api/accounts', () => {
@@ -291,6 +315,38 @@ describe('Accounts module', () => {
         .send({ role: 'CUSTOMER' });
 
       expect(res.status).toBe(403);
+    });
+
+    it('rejects promoting a CUSTOMER to STAFF with 409 when that email already has a STAFF account', async () => {
+      const { token } = await createUserAndToken({ role: 'ADMIN' });
+      const email = 'crosses-spaces@example.com';
+
+      const { user: customerTarget } = await createUserAndToken({ role: 'CUSTOMER', email });
+      await createUserAndToken({ role: 'STAFF', email });
+
+      const res = await request(app)
+        .patch(`/api/accounts/${customerTarget._id}/role`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ role: 'STAFF' });
+
+      expect(res.status).toBe(409);
+    });
+
+    it('allows promoting a CUSTOMER to STAFF and lets them log in through the admin panel afterwards', async () => {
+      const { token } = await createUserAndToken({ role: 'ADMIN' });
+      const { user: target } = await createUserAndToken({ role: 'CUSTOMER', email: 'promoted@example.com' });
+
+      const res = await request(app)
+        .patch(`/api/accounts/${target._id}/role`)
+        .set('Authorization', `Bearer ${token}`)
+        .send({ role: 'STAFF' });
+      expect(res.status).toBe(200);
+
+      const loginRes = await request(app)
+        .post('/api/auth/admin/login')
+        .send({ email: 'promoted@example.com', password: 'password123' });
+      expect(loginRes.status).toBe(200);
+      expect(loginRes.body.data.user.role).toBe('STAFF');
     });
   });
 

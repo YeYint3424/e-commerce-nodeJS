@@ -16,11 +16,11 @@ function createApp() {
       contentSecurityPolicy: {
         directives: {
           defaultSrc: ["'self'"],
-          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://cdn.tailwindcss.com', 'https://unpkg.com'],
+          scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", 'https://cdn.tailwindcss.com', 'https://unpkg.com', 'https://cdn.jsdelivr.net'],
           styleSrc: ["'self'", "'unsafe-inline'", 'https://cdn.tailwindcss.com', 'https://unpkg.com', 'https://fonts.googleapis.com'],
           fontSrc: ["'self'", 'https://fonts.gstatic.com', 'data:'],
-          imgSrc: ["'self'", 'data:', 'blob:'],
-          connectSrc: ["'self'"],
+          imgSrc: ["'self'", 'data:', 'blob:', 'https://picsum.photos', 'https://fastly.picsum.photos'],
+          connectSrc: ["'self'", 'https://unpkg.com', 'https://cdn.jsdelivr.net', 'https://cdn.tailwindcss.com'],
         },
       },
     })
@@ -51,11 +51,30 @@ function createApp() {
     '/voucher/:id': 'voucher.html',
     '/login': 'login.html',
     '/register': 'register.html',
+    '/profile': 'profile.html',
   };
 
   Object.entries(customerPages).forEach(([route, file]) => {
     app.get(route, (req, res) => {
       res.sendFile(path.join(publicDir, 'customer', file));
+    });
+  });
+
+  const adminPages = {
+    '/ecommerce-admin/login': 'login.html',
+    '/ecommerce-admin/dashboard': 'dashboard.html',
+    '/ecommerce-admin/accounts': 'accounts.html',
+    '/ecommerce-admin/categories': 'categories.html',
+    '/ecommerce-admin/products': 'products.html',
+    '/ecommerce-admin/orders': 'orders.html',
+    '/ecommerce-admin/payment-options': 'payment-options.html',
+    '/ecommerce-admin/sales-history': 'sales-history.html',
+    '/ecommerce-admin/profile': 'profile.html',
+  };
+
+  Object.entries(adminPages).forEach(([route, file]) => {
+    app.get(route, (req, res) => {
+      res.sendFile(path.join(publicDir, 'admin', file));
     });
   });
 

@@ -24,14 +24,14 @@ function skeletonRows(count) {
   return Array.from({ length: count })
     .map(
       () => `
-        <div class="animate-pulse rounded-2xl border border-slate-200 bg-white p-4 dark:border-slate-800 dark:bg-slate-900">
+        <div class="animate-pulse rounded-2xl border border-slate-200 bg-white p-4 dark:border-neutral-800 dark:bg-neutral-900">
           <div class="grid grid-cols-1 gap-3 ${GRID_COLS} sm:items-center sm:gap-4">
-            <div class="h-4 w-24 rounded bg-slate-200 dark:bg-slate-800"></div>
-            <div class="h-4 w-40 rounded bg-slate-200 dark:bg-slate-800"></div>
-            <div class="h-4 w-16 rounded bg-slate-200 dark:bg-slate-800"></div>
-            <div class="h-6 w-20 rounded-full bg-slate-200 dark:bg-slate-800"></div>
-            <div class="h-4 w-20 rounded bg-slate-200 dark:bg-slate-800"></div>
-            <div class="h-8 w-24 rounded-full bg-slate-200 dark:bg-slate-800"></div>
+            <div class="h-4 w-24 rounded bg-slate-200 dark:bg-neutral-800"></div>
+            <div class="h-4 w-40 rounded bg-slate-200 dark:bg-neutral-800"></div>
+            <div class="h-4 w-16 rounded bg-slate-200 dark:bg-neutral-800"></div>
+            <div class="h-6 w-20 rounded-full bg-slate-200 dark:bg-neutral-800"></div>
+            <div class="h-4 w-20 rounded bg-slate-200 dark:bg-neutral-800"></div>
+            <div class="h-8 w-24 rounded-full bg-slate-200 dark:bg-neutral-800"></div>
           </div>
         </div>
       `
@@ -46,14 +46,14 @@ function renderRow(voucher) {
   const canCancel = voucher.orderStatus === 'PENDING';
 
   return `
-    <div class="grid grid-cols-1 gap-3 rounded-2xl border border-slate-200 bg-white p-4 ${GRID_COLS} sm:items-center sm:gap-4 dark:border-slate-800 dark:bg-slate-900">
+    <div class="grid grid-cols-1 gap-3 rounded-2xl border border-slate-200 bg-white p-4 ${GRID_COLS} sm:items-center sm:gap-4 dark:border-neutral-800 dark:bg-neutral-900">
       <div>
         <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:hidden">Voucher</p>
-        <p class="font-mono text-sm font-semibold text-slate-800 dark:text-slate-100">${escapeHtml(voucher.voucherId)}</p>
+        <p class="font-mono text-sm font-semibold text-slate-800 dark:text-neutral-100">${escapeHtml(voucher.voucherId)}</p>
       </div>
       <div class="min-w-0">
         <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:hidden">Items</p>
-        <p class="truncate text-sm text-slate-600 dark:text-slate-300">${escapeHtml(summary)}</p>
+        <p class="truncate text-sm text-slate-600 dark:text-neutral-300">${escapeHtml(summary)}</p>
       </div>
       <div>
         <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:hidden">Total</p>
@@ -65,10 +65,10 @@ function renderRow(voucher) {
       </div>
       <div>
         <p class="text-[11px] font-semibold uppercase tracking-wide text-slate-400 sm:hidden">Date</p>
-        <p class="text-sm text-slate-500 dark:text-slate-400">${formatDate(voucher.createdAt)}</p>
+        <p class="text-sm text-slate-500 dark:text-neutral-400">${formatDate(voucher.createdAt)}</p>
       </div>
       <div class="flex flex-wrap items-center gap-2 pt-1 sm:pt-0">
-        <a href="/voucher/${voucher.orderId}" class="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-indigo-300 hover:text-indigo-600 dark:border-slate-700 dark:text-slate-300 dark:hover:border-indigo-700 dark:hover:text-indigo-400">View</a>
+        <a href="/voucher/${voucher.orderId}" class="rounded-full border border-slate-200 px-3 py-1.5 text-xs font-semibold text-slate-600 transition-colors hover:border-gold-300 hover:text-gold-600 dark:border-neutral-700 dark:text-neutral-300 dark:hover:border-gold-700 dark:hover:text-gold-400">View</a>
         ${
           canCancel
             ? `<button type="button" data-cancel="${voucher.orderId}" class="rounded-full border border-rose-200 px-3 py-1.5 text-xs font-semibold text-rose-600 transition-colors hover:bg-rose-50 dark:border-rose-800 dark:text-rose-300 dark:hover:bg-rose-950/40">Cancel</button>`
@@ -96,17 +96,17 @@ function renderPagination(pagination) {
   }
 
   el.innerHTML = `
-    <button data-page="${page - 1}" ${page <= 1 ? 'disabled' : ''} class="rounded-full border border-slate-200 p-2 text-slate-500 disabled:opacity-40 dark:border-slate-700"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
+    <button data-page="${page - 1}" ${page <= 1 ? 'disabled' : ''} class="rounded-full border border-slate-200 p-2 text-slate-500 disabled:opacity-40 dark:border-neutral-700"><i data-lucide="chevron-left" class="h-4 w-4"></i></button>
     ${pages
       .map((p) =>
         p === '...'
           ? `<span class="px-2 text-slate-400">...</span>`
           : `<button data-page="${p}" class="h-9 w-9 rounded-full text-sm font-medium transition-colors ${
-              p === page ? 'bg-indigo-600 text-white' : 'text-slate-600 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800'
+              p === page ? 'bg-gold-600 text-white' : 'text-slate-600 hover:bg-slate-100 dark:text-neutral-300 dark:hover:bg-neutral-800'
             }">${p}</button>`
       )
       .join('')}
-    <button data-page="${page + 1}" ${page >= totalPages ? 'disabled' : ''} class="rounded-full border border-slate-200 p-2 text-slate-500 disabled:opacity-40 dark:border-slate-700"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
+    <button data-page="${page + 1}" ${page >= totalPages ? 'disabled' : ''} class="rounded-full border border-slate-200 p-2 text-slate-500 disabled:opacity-40 dark:border-neutral-700"><i data-lucide="chevron-right" class="h-4 w-4"></i></button>
   `;
   if (window.lucide) {
     window.lucide.createIcons();
